@@ -1,0 +1,10 @@
+{
+  "a": 0.5,
+  "b": -0.5,
+  "floor_critical": 0.93,
+  "cap_no_harm": 0.49,
+  "t_amber": 0.5,
+  "t_red": 0.65,
+  "ml_alone": 0.99,
+  "ml_alone_floor": 0.5
+}

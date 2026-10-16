@@ -1,0 +1,62 @@
+id,label,campaign,lang,sender,text
+D001,1,traffic_fine,dar_ar,,تنبيه!! عندك مخالفة السرعة تسجلات عليك نهار 3 اكتوبر. باش تشوف الصورة ديال الرادار و تخلص دخل هنا radar-maroc.info قبل ما يتزاد عليك الثمن
+D002,1,traffic_fine,fr,+44 7700 900 461,Royaume du Maroc. Avis de contravention N 2026/88412. Montant 400 DH. Regularisation obligatoire sous 48h : infractions-maroc.com
+D003,1,bank_phishing,dar_lat,,CIH: chi had dkhl l compte dyalk mn telephone jdid f Rabat. ila machi nta bloqi daba mn hna cih-alerte.com
+D004,1,bank_phishing,fr,,"Cher(e) client(e) Chaabi Net, votre session a expiré. Veuillez vous reconnecter afin d'éviter la désactivation de vos services : chaabinet-ma.com/connexion"
+D005,1,bank_otp,dar_ar,,مرحبا معاك مصلحة الزبناء، باش نرجعو ليك الفلوس اللي تقتطعو بالغلط خاصنا الكود اللي غادي يوصلك دابا فالرسالة
+D006,1,bank_otp,fr,,"Madame, pour annuler le prélèvement de 4 900 DH sur votre compte j'ai besoin du code de confirmation que la banque vient de vous envoyer"
+D007,1,parcel,fr,,"Barid Al-Maghrib Express: Votre envoi est en attente au bureau de douane. Pour la libération, réglez 18,50 dhs ici avant 23h59 ➡ barid-express-ma.shop"
+D008,1,parcel,dar_lat,,"Salam, l colis dyalk mn Shein w9ef f douane, khass tkhlles 22dh bach yfot. Lien: shein-maroc-livraison.com"
+D009,1,parcel,msa,,تعذر توصيل شحنتكم رقم MA22918. يرجى تحديث عنوان التسليم ودفع رسوم إعادة الإرسال 12 درهم عبر: tinyurl.com/amana-ma22
+D010,1,telecom_prize,msa,,اتصالات المغرب تهنئكم: لقد تم اختيار رقمكم ضمن الفائزين بهاتف iPhone 17 Pro بمناسبة الذكرى السنوية. لاستلام الجائزة: maroctelecom-gift.top
+D011,1,telecom_prize,fr,,Orange Maroc: votre ligne a cumulé 9 850 points. Ils expirent le 31/10. Echangez-les gratuitement contre un smartphone : orange-points-ma.com
+D012,1,gov_aid,dar_lat,,"Salam, dkhl smitk w numéro dyal la carte bancaire f had site bach tstafed mn da3m dyal 2000dh dyal dkhoul lmadrassi: da3m-madrasi.online"
+D013,1,gov_aid,fr,,"Ministère de la Santé: suite à votre dernière consultation, un remboursement AMO de 640 DH vous est dû. Saisissez vos informations bancaires sur amo-sante-ma.com"
+D014,1,family,dar_ar,,سلام خالتي، أنا أمين ولد ختك، هادي نمرتي الجديدة. واش ممكن تسلفيني 1000 درهم دابا؟ ضروري بزاف، وما تقولي لماما
+D015,1,family,dar_lat,,"baba ana f lkoumissarya, khasni 3000dh dyal l'amende daba, sift lia f wafacash smiya: Hamid Alaoui, ma t3ayetch"
+D016,1,family,fr,,"Salut tonton c'est Youssef, nouveau numéro. J'ai un souci avec ma carte bancaire, tu peux m'avancer 1500 DH par CashPlus ? Je te rembourse lundi"
+D017,1,whatsapp_hijack,dar_ar,,سلام، صيفطت ليك واحد الكود ديال 6 أرقام بلا ما نقصد، عطيه ليا عافاك ضروري
+D018,1,whatsapp_hijack,en,,"Hey! sorry, I typed your number by mistake for my WhatsApp, you'll get a 6 digit code. can u send it to me? thx"
+D019,1,job,dar_lat,,Wach bghiti tkhdem f Doha? salaire 9000dh + sakan. Ghir sift 1800dh dyal visa l had numéro w ghadi ntsalo bik
+D020,1,job,fr,,"Offre spéciale : devenez agent de saisie à domicile, 350 DH/jour. Inscription 200 DH à verser par Wafacash. Contactez Mme Laila sur WhatsApp"
+D021,1,job,msa,,فرصة عمل من المنزل: اربح من 300 إلى 900 درهم يوميا فقط بالإعجاب بالمنتجات. للتسجيل راسلنا على التيليغرام t.me/amal_jobs_ma
+D022,1,investment,fr,,"Mon conseiller m'a fait gagner 18 000 DH en 2 semaines grâce au trading automatique. Il accepte de nouveaux clients, rendement garanti. Ecris-lui: wa.me/447412345678"
+D023,1,investment,dar_lat,,"Khoya 7ell compte f had plateforme crypto w 7et 1000dh, ghadi tchouf flousk tdoubla f 7 iyam, ana jarrebtha"
+D024,1,lottery,fr,,BRAVO ! Votre numéro est le grand gagnant du tirage Label'Vie : un bon d'achat de 5 000 DH. Frais de dossier : 49 DH. Validez ici : labelvie-gagnant.vip
+D025,1,lottery,dar_ar,,مبروك ربحتي عمرة مجانية مع وكالة الأسفار، خلص غير 300 درهم ديال الملف فوفاكاش وسيفط ليا صورة البطاقة الوطنية
+D026,1,marketplace,fr,,"Bonjour, je suis à l'étranger, mon cousin viendra chercher le canapé. J'ai effectué le paiement, confirmez la réception en entrant vos coordonnées bancaires : avito-securepay.net"
+D027,1,utility,fr,,"ONEE: Avis de coupure. Votre facture d'électricité de 312,40 DH reste impayée. Evitez la coupure de demain en payant ici: onee-payer.com"
+D028,1,account,msa,,فيسبوك: تم الإبلاغ عن حسابك بسبب مخالفة المعايير. إذا لم تقم بالتحقق خلال 24 ساعة سيتم حذفه نهائيا: fb-support-center.com
+D029,1,lure_link,dar_ar,,شوفي واش هادي نتي فهاد الفيديو 😱😱 bit.ly/4kLm9P
+D030,1,account,fr,,Votre abonnement Netflix est suspendu: paiement refusé. Mettez à jour votre moyen de paiement sous 24h : netflix-maroc-billing.com
+D031,1,bank_phishing,en,+1 415 555 0199,CIH Bank security: your card has been temporarily blocked. Call our support line immediately.
+D032,1,traffic_fine,fr_real,,ANTAI: Vous avez un avis de contravention impaye de 35EUR. Regle de majoree dans 48h. Regularisez: amendes-gouv-paiement.fr
+D033,1,traffic_fine,fr_real,,INFO AMENDES: Votre PV n°2026-AF-4892 n'a pas ete regle. Passez au paiement pour eviter la majoration: pv-amendes-france.com/payer
+D034,1,traffic_fine,fr_real,,Mairie de Paris: Votre vehicule a fait l'objet d'un FPS impaye. Regularisez avant majoration: fps-stationnement-paris.fr
+D035,1,traffic_fine,fr_real,,RADAR AUTO: Exces de vitesse constate le 12/02. Montant: 135EUR. Payez avant majoration: radar-amendes.gouv-fr.com
+D036,1,traffic_fine,fr_real,,TRESOR PUBLIC: Votre amende de 68EUR a ete majoree a 180EUR. Dernier delai de paiement: 48h. tresor-public-amendes.fr/payer
+D037,0,otp,dar_ar,,الكود ديالك هو 4417، ما تعطيه لحتى واحد حتى لموظف البنك
+D038,0,otp,fr,Yassir,Yassir : votre code de vérification est 5512. Il expire dans 5 minutes.
+D039,0,bank_notice,fr,SAHAM BANK,"Saham Bank : retrait de 1 000,00 MAD effectué le 08/10 à 19:12 au GAB Berkane Centre."
+D040,0,delivery,dar_lat,,"salam 3afak wach nta f dar? ana livreur dyal amana 3ndi lik wa7d colis, 3ayet lia 3la 0661223344"
+D041,0,delivery,fr,AMANA,AMANA : votre colis CP118266534MA a été livré. Merci d'avoir choisi Amana.
+D042,0,family,dar_ar,,ماما راه صيفطت ليك 500 درهم فكاش بلوس، الكود هو 88213، سيري خدهم ملي تفيقي
+D043,0,family,fr,,"Papa, j'ai bien reçu l'argent pour l'inscription, merci beaucoup ! Je t'appelle ce soir."
+D044,0,chat,dar_lat,,wach 3ndk l code dyal l'examen dyal analyse? bghit nchouf ach jani
+D045,0,chat,fr,,"Le code du portail c'est 2580, je serai là vers 19h"
+D046,0,chat,dar_ar,,راه ربحنا الماتش أ صاحبي! الله يبارك، ديما مغرب 🇲🇦
+D047,0,chat,en,,Congrats on the new job!! You totally deserve it 🎉
+D048,0,link,fr,,Voici le lien pour suivre la conférence IBM en direct : www.ibm.com/events/z-datathon
+D049,0,link,dar_lat,,drari ra l'emploi du temps jdid t7et f had lien drive.google.com/file/d/1aB2cD3eF4
+D050,0,link,dar_ar,,شوفو هاد المقال على هسبريس، كيهضر على الاحتيال بالرسائل: www.hespress.com/societe
+D051,0,gov,msa,,تذكير من وزارة الصحة: حملة التلقيح ضد الحصبة بالمراكز الصحية من 10 إلى 20 أكتوبر. اللقاح مجاني.
+D052,0,gov,fr,DGI,DGI : Rappel - la date limite de paiement de la taxe d'habitation est fixée au 31/10. Paiement sur www.tax.gov.ma ou auprès des percepteurs.
+D053,0,promo,fr,inwi,inwi : Profitez de -50% sur le Pass Internet ce week-end. Composez *6# pour l'activer.
+D054,0,promo,dar_ar,,تخفيضات كبار عند كيتيا حتى ل 50% غير هاد السيمانة، مرحبا بيكم فالمحل
+D055,0,marketplace,dar_lat,,"salam, wach l frigo mazal 3ndk? ila mazal nji nchofo ghda 3la 5, w nkhelsek cash ila 3jbni"
+D056,0,warning,fr,,"Rappel de votre banque : nous ne vous demanderons jamais vos codes par SMS ou par téléphone. En cas de doute, appelez votre agence."
+D057,0,warning,dar_lat,,"rdo lbal drari, kayn chi wa7d kaysifet messages smiyto 'Amana' w kaytleb 12dh, ma tclickiwch 3la lien"
+D058,0,school,fr,,Massar : les notes du premier contrôle sont disponibles. Consultez l'espace parents sur massar.men.gov.ma
+D059,0,bank_notice,msa,,"تم إيداع مبلغ 1.200,00 درهم في حسابكم من طرف الصندوق الوطني للضمان الاجتماعي."
+D060,0,chat,dar_lat,,"3afak sift lia smiya w numéro dyal plombier li jak, bghit nsl7 robinet"
+D061,0,appointment,dar_ar,,سلام، عيادة الدكتور العلوي: موعدك غدا مع 11 صباحا، جيب معاك البطاقة الوطنية وورقة الضمان

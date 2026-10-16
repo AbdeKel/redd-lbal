@@ -1,0 +1,62 @@
+id,label,campaign,lang,sender,text,verdict,risk,type,orig_p,orig_verdict
+D001,1,traffic_fine,dar_ar,,تنبيه!! عندك مخالفة السرعة تسجلات عليك نهار 3 اكتوبر. باش تشوف الصورة ديال الرادار و تخلص دخل هنا radar-maroc.info قبل ما يتزاد عليك الثمن,red,0.9982,traffic_fine,0.7652127599425959,red
+D002,1,traffic_fine,fr,+44 7700 900 461,Royaume du Maroc. Avis de contravention N 2026/88412. Montant 400 DH. Regularisation obligatoire sous 48h : infractions-maroc.com,red,0.9999,traffic_fine,0.2306026704587446,green
+D003,1,bank_phishing,dar_lat,,CIH: chi had dkhl l compte dyalk mn telephone jdid f Rabat. ila machi nta bloqi daba mn hna cih-alerte.com,red,0.9985,bank,0.5612082197990033,red
+D004,1,bank_phishing,fr,,"Cher(e) client(e) Chaabi Net, votre session a expiré. Veuillez vous reconnecter afin d'éviter la désactivation de vos services : chaabinet-ma.com/connexion",red,0.9974,bank,0.16980684764155327,green
+D005,1,bank_otp,dar_ar,,مرحبا معاك مصلحة الزبناء، باش نرجعو ليك الفلوس اللي تقتطعو بالغلط خاصنا الكود اللي غادي يوصلك دابا فالرسالة,red,0.9916,bank,0.12623941958887555,green
+D006,1,bank_otp,fr,,"Madame, pour annuler le prélèvement de 4 900 DH sur votre compte j'ai besoin du code de confirmation que la banque vient de vous envoyer",red,0.9945,bank,0.0392476196233026,green
+D007,1,parcel,fr,,"Barid Al-Maghrib Express: Votre envoi est en attente au bureau de douane. Pour la libération, réglez 18,50 dhs ici avant 23h59 ➡ barid-express-ma.shop",red,0.9993,parcel,0.1532530162658382,green
+D008,1,parcel,dar_lat,,"Salam, l colis dyalk mn Shein w9ef f douane, khass tkhlles 22dh bach yfot. Lien: shein-maroc-livraison.com",red,0.9952,parcel,0.38880554783518045,green
+D009,1,parcel,msa,,تعذر توصيل شحنتكم رقم MA22918. يرجى تحديث عنوان التسليم ودفع رسوم إعادة الإرسال 12 درهم عبر: tinyurl.com/amana-ma22,red,0.9995,generic,0.5004819451029761,red
+D010,1,telecom_prize,msa,,اتصالات المغرب تهنئكم: لقد تم اختيار رقمكم ضمن الفائزين بهاتف iPhone 17 Pro بمناسبة الذكرى السنوية. لاستلام الجائزة: maroctelecom-gift.top,red,0.9977,telecom_prize,0.8616402759030855,red
+D011,1,telecom_prize,fr,,Orange Maroc: votre ligne a cumulé 9 850 points. Ils expirent le 31/10. Echangez-les gratuitement contre un smartphone : orange-points-ma.com,red,0.9997,telecom_prize,0.9684477595373547,red
+D012,1,gov_aid,dar_lat,,"Salam, dkhl smitk w numéro dyal la carte bancaire f had site bach tstafed mn da3m dyal 2000dh dyal dkhoul lmadrassi: da3m-madrasi.online",red,1.0,gov_aid,0.5736934725582462,red
+D013,1,gov_aid,fr,,"Ministère de la Santé: suite à votre dernière consultation, un remboursement AMO de 640 DH vous est dû. Saisissez vos informations bancaires sur amo-sante-ma.com",red,0.9999,gov_aid,0.25223738976253907,green
+D014,1,family,dar_ar,,سلام خالتي، أنا أمين ولد ختك، هادي نمرتي الجديدة. واش ممكن تسلفيني 1000 درهم دابا؟ ضروري بزاف، وما تقولي لماما,red,0.9352,family,0.9009076141456301,red
+D015,1,family,dar_lat,,"baba ana f lkoumissarya, khasni 3000dh dyal l'amende daba, sift lia f wafacash smiya: Hamid Alaoui, ma t3ayetch",red,0.9981,family,0.028379661606217584,green
+D016,1,family,fr,,"Salut tonton c'est Youssef, nouveau numéro. J'ai un souci avec ma carte bancaire, tu peux m'avancer 1500 DH par CashPlus ? Je te rembourse lundi",red,0.9909,family,0.31851499095302815,green
+D017,1,whatsapp_hijack,dar_ar,,سلام، صيفطت ليك واحد الكود ديال 6 أرقام بلا ما نقصد، عطيه ليا عافاك ضروري,red,0.9945,whatsapp_hijack,0.12623941958887555,green
+D018,1,whatsapp_hijack,en,,"Hey! sorry, I typed your number by mistake for my WhatsApp, you'll get a 6 digit code. can u send it to me? thx",red,0.9892,whatsapp_hijack,0.005784225500270501,green
+D019,1,job,dar_lat,,Wach bghiti tkhdem f Doha? salaire 9000dh + sakan. Ghir sift 1800dh dyal visa l had numéro w ghadi ntsalo bik,red,0.9976,job,0.11684393002953841,green
+D020,1,job,fr,,"Offre spéciale : devenez agent de saisie à domicile, 350 DH/jour. Inscription 200 DH à verser par Wafacash. Contactez Mme Laila sur WhatsApp",red,0.9992,job,0.8155751048905772,red
+D021,1,job,msa,,فرصة عمل من المنزل: اربح من 300 إلى 900 درهم يوميا فقط بالإعجاب بالمنتجات. للتسجيل راسلنا على التيليغرام t.me/amal_jobs_ma,red,0.9974,investment,0.3216692956826548,green
+D022,1,investment,fr,,"Mon conseiller m'a fait gagner 18 000 DH en 2 semaines grâce au trading automatique. Il accepte de nouveaux clients, rendement garanti. Ecris-lui: wa.me/447412345678",red,0.998,investment,0.18304111759272726,green
+D023,1,investment,dar_lat,,"Khoya 7ell compte f had plateforme crypto w 7et 1000dh, ghadi tchouf flousk tdoubla f 7 iyam, ana jarrebtha",red,0.9665,investment,0.08313454021192444,green
+D024,1,lottery,fr,,BRAVO ! Votre numéro est le grand gagnant du tirage Label'Vie : un bon d'achat de 5 000 DH. Frais de dossier : 49 DH. Validez ici : labelvie-gagnant.vip,red,0.9998,lottery,0.8402341445229302,red
+D025,1,lottery,dar_ar,,مبروك ربحتي عمرة مجانية مع وكالة الأسفار، خلص غير 300 درهم ديال الملف فوفاكاش وسيفط ليا صورة البطاقة الوطنية,red,0.9975,lottery,0.7849698741305273,red
+D026,1,marketplace,fr,,"Bonjour, je suis à l'étranger, mon cousin viendra chercher le canapé. J'ai effectué le paiement, confirmez la réception en entrant vos coordonnées bancaires : avito-securepay.net",red,0.9999,bank,0.5409259570816676,red
+D027,1,utility,fr,,"ONEE: Avis de coupure. Votre facture d'électricité de 312,40 DH reste impayée. Evitez la coupure de demain en payant ici: onee-payer.com",red,0.9965,utility,0.3655149915836383,green
+D028,1,account,msa,,فيسبوك: تم الإبلاغ عن حسابك بسبب مخالفة المعايير. إذا لم تقم بالتحقق خلال 24 ساعة سيتم حذفه نهائيا: fb-support-center.com,red,0.9974,traffic_fine,0.7269302128502048,red
+D029,1,lure_link,dar_ar,,شوفي واش هادي نتي فهاد الفيديو 😱😱 bit.ly/4kLm9P,red,0.974,lure_link,0.05980580798701925,green
+D030,1,account,fr,,Votre abonnement Netflix est suspendu: paiement refusé. Mettez à jour votre moyen de paiement sous 24h : netflix-maroc-billing.com,red,0.9996,account,0.38900977822595534,green
+D031,1,bank_phishing,en,+1 415 555 0199,CIH Bank security: your card has been temporarily blocked. Call our support line immediately.,red,0.994,bank,0.5526070679913613,red
+D032,1,traffic_fine,fr_real,,ANTAI: Vous avez un avis de contravention impaye de 35EUR. Regle de majoree dans 48h. Regularisez: amendes-gouv-paiement.fr,red,0.9996,traffic_fine,0.19303629225813115,green
+D033,1,traffic_fine,fr_real,,INFO AMENDES: Votre PV n°2026-AF-4892 n'a pas ete regle. Passez au paiement pour eviter la majoration: pv-amendes-france.com/payer,red,0.9994,traffic_fine,0.5270619563511288,red
+D034,1,traffic_fine,fr_real,,Mairie de Paris: Votre vehicule a fait l'objet d'un FPS impaye. Regularisez avant majoration: fps-stationnement-paris.fr,red,0.9987,traffic_fine,0.41690311749495823,green
+D035,1,traffic_fine,fr_real,,RADAR AUTO: Exces de vitesse constate le 12/02. Montant: 135EUR. Payez avant majoration: radar-amendes.gouv-fr.com,red,0.9997,traffic_fine,0.3252330666073999,green
+D036,1,traffic_fine,fr_real,,TRESOR PUBLIC: Votre amende de 68EUR a ete majoree a 180EUR. Dernier delai de paiement: 48h. tresor-public-amendes.fr/payer,red,0.9981,traffic_fine,0.0625352012401843,green
+D037,0,otp,dar_ar,,الكود ديالك هو 4417، ما تعطيه لحتى واحد حتى لموظف البنك,green,0.0114,,0.12623941958887555,green
+D038,0,otp,fr,Yassir,Yassir : votre code de vérification est 5512. Il expire dans 5 minutes.,green,0.0305,,0.04878375203572986,green
+D039,0,bank_notice,fr,SAHAM BANK,"Saham Bank : retrait de 1 000,00 MAD effectué le 08/10 à 19:12 au GAB Berkane Centre.",green,0.0809,,0.6720551093757786,red
+D040,0,delivery,dar_lat,,"salam 3afak wach nta f dar? ana livreur dyal amana 3ndi lik wa7d colis, 3ayet lia 3la 0661223344",green,0.4489,,0.06439498869818666,green
+D041,0,delivery,fr,AMANA,AMANA : votre colis CP118266534MA a été livré. Merci d'avoir choisi Amana.,green,0.0302,,0.12623941958887555,green
+D042,0,family,dar_ar,,ماما راه صيفطت ليك 500 درهم فكاش بلوس، الكود هو 88213، سيري خدهم ملي تفيقي,green,0.0264,,0.9555219758410403,red
+D043,0,family,fr,,"Papa, j'ai bien reçu l'argent pour l'inscription, merci beaucoup ! Je t'appelle ce soir.",green,0.3133,,0.07309624016613558,green
+D044,0,chat,dar_lat,,wach 3ndk l code dyal l'examen dyal analyse? bghit nchouf ach jani,green,0.0668,,0.8867387068054895,red
+D045,0,chat,fr,,"Le code du portail c'est 2580, je serai là vers 19h",green,0.1601,,0.5246985785692554,red
+D046,0,chat,dar_ar,,راه ربحنا الماتش أ صاحبي! الله يبارك، ديما مغرب 🇲🇦,green,0.0135,,0.12623941958887555,green
+D047,0,chat,en,,Congrats on the new job!! You totally deserve it 🎉,green,0.2066,,0.05751974348507916,green
+D048,0,link,fr,,Voici le lien pour suivre la conférence IBM en direct : www.ibm.com/events/z-datathon,green,0.3716,,0.5330420810758821,red
+D049,0,link,dar_lat,,drari ra l'emploi du temps jdid t7et f had lien drive.google.com/file/d/1aB2cD3eF4,green,0.0399,,0.03250100638529973,green
+D050,0,link,dar_ar,,شوفو هاد المقال على هسبريس، كيهضر على الاحتيال بالرسائل: www.hespress.com/societe,green,0.1646,,0.9660749267707971,red
+D051,0,gov,msa,,تذكير من وزارة الصحة: حملة التلقيح ضد الحصبة بالمراكز الصحية من 10 إلى 20 أكتوبر. اللقاح مجاني.,green,0.038,,0.5005370212262064,red
+D052,0,gov,fr,DGI,DGI : Rappel - la date limite de paiement de la taxe d'habitation est fixée au 31/10. Paiement sur www.tax.gov.ma ou auprès des percepteurs.,green,0.1499,,0.16708800198577675,green
+D053,0,promo,fr,inwi,inwi : Profitez de -50% sur le Pass Internet ce week-end. Composez *6# pour l'activer.,green,0.1987,,0.28232206181901714,green
+D054,0,promo,dar_ar,,تخفيضات كبار عند كيتيا حتى ل 50% غير هاد السيمانة، مرحبا بيكم فالمحل,green,0.0855,,0.7645214314532519,red
+D055,0,marketplace,dar_lat,,"salam, wach l frigo mazal 3ndk? ila mazal nji nchofo ghda 3la 5, w nkhelsek cash ila 3jbni",green,0.235,,0.42674529574127545,green
+D056,0,warning,fr,,"Rappel de votre banque : nous ne vous demanderons jamais vos codes par SMS ou par téléphone. En cas de doute, appelez votre agence.",green,0.2385,,0.02256869611001421,green
+D057,0,warning,dar_lat,,"rdo lbal drari, kayn chi wa7d kaysifet messages smiyto 'Amana' w kaytleb 12dh, ma tclickiwch 3la lien",green,0.2167,,0.07052948424424713,green
+D058,0,school,fr,,Massar : les notes du premier contrôle sont disponibles. Consultez l'espace parents sur massar.men.gov.ma,green,0.0928,,0.2750649907589704,green
+D059,0,bank_notice,msa,,"تم إيداع مبلغ 1.200,00 درهم في حسابكم من طرف الصندوق الوطني للضمان الاجتماعي.",green,0.221,,0.9373333821411073,red
+D060,0,chat,dar_lat,,"3afak sift lia smiya w numéro dyal plombier li jak, bghit nsl7 robinet",green,0.49,,0.10968338915123874,green
+D061,0,appointment,dar_ar,,سلام، عيادة الدكتور العلوي: موعدك غدا مع 11 صباحا، جيب معاك البطاقة الوطنية وورقة الضمان,green,0.1565,,0.48806858047358637,green

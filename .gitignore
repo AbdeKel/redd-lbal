@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+data/raw/urls.csv
+data/processed/
+data/real_messages.csv
+server/radar_counts.json
+model/_*.json
+legacy/models/

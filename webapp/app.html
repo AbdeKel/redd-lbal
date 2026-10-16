@@ -1,0 +1,689 @@
+<title>Redd Lbal</title>
+<meta name="description" content="Paste a suspicious SMS or WhatsApp message (Darija, French, Arabic, English) and see in a second whether it is a scam, and why.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: one calm column (max 44rem). The pasted message is the hero; the verdict lands on it as an
+   official rubber stamp, the evidence is underlined on the message itself, then the reasons and what to do. */
+:root {
+  --bg: #EDF0F6;            /* whitewash, cool */
+  --surface: #FFFFFF;
+  --surface-2: #E2E7F0;     /* message bubble */
+  --ink: #141B2D;
+  --muted: #55607A;
+  --line: #C9D1DF;
+  --accent: #2340B0;        /* Majorelle cobalt */
+  --accent-ink: #FFFFFF;
+  --scam: #BF1F2A;  --scam-bg: #FBE3E4;
+  --warn: #A86200;  --warn-bg: #FFEFCF;   /* saffron */
+  --ok: #19744A;    --ok-bg: #DFF2E7;     /* mint tea */
+  --focus: #2340B0;
+  --font-display: "Reem Kufi", "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans Arabic", "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --step-0: 1.125rem; --step-1: 1.35rem; --step-2: 1.7rem; --step-3: 2.3rem; --small: 0.95rem;
+  --radius: 14px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0D1322; --surface: #151D31; --surface-2: #1E2841; --ink: #E6EBF5; --muted: #98A4C0; --line: #2B3655;
+  --accent: #8199FF; --accent-ink: #0D1322; --scam: #FF6C72; --scam-bg: #3B1820; --warn: #F2B544; --warn-bg: #392B12;
+  --ok: #4FCB8E; --ok-bg: #11301F; --focus: #8199FF; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0D1322; --surface: #151D31; --surface-2: #1E2841; --ink: #E6EBF5; --muted: #98A4C0; --line: #2B3655;
+  --accent: #8199FF; --accent-ink: #0D1322; --scam: #FF6C72; --scam-bg: #3B1820; --warn: #F2B544; --warn-bg: #392B12;
+  --ok: #4FCB8E; --ok-bg: #11301F; --focus: #8199FF; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: var(--step-0); line-height: 1.6; }
+.wrap { max-width: 44rem; margin: 0 auto; padding-inline: 16px; padding-block: 12px 48px; display: flex; flex-direction: column; gap: 28px; }
+.stack { display: flex; flex-direction: column; gap: 28px; min-width: 0; }
+.where { display: inline-flex; align-items: center; gap: 8px; font-size: var(--small); color: var(--muted); }
+.where b { color: var(--ink); font-weight: 600; }
+button, input, textarea, select { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 8px; }
+a { color: var(--accent); }
+
+/* ---------- top bar */
+.bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-block: 6px; }
+.brand { display: flex; align-items: baseline; gap: 10px; }
+.brand .mark { font-family: var(--font-display); font-weight: 700; font-size: 1.9rem; line-height: 1; color: var(--accent); }
+.brand .latin { font-size: var(--small); color: var(--muted); letter-spacing: 0.02em; }
+.langs { display: inline-flex; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 3px; gap: 2px; }
+.langs button { border: 0; background: transparent; padding: 6px 12px; border-radius: 999px; font-size: var(--small); cursor: pointer; min-height: 36px; }
+.langs button[aria-checked="true"] { background: var(--accent); color: var(--accent-ink); font-weight: 600; }
+
+/* ---------- checker */
+.hero h1 { font-family: var(--font-display); font-weight: 700; font-size: var(--step-3); line-height: 1.15; margin: 0 0 6px; text-wrap: balance; }
+.hero p { margin: 0; color: var(--muted); max-width: 36rem; }
+.compose { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: var(--small); color: var(--muted); font-weight: 500; }
+#sender { border: 1px solid var(--line); background: var(--bg); border-radius: 10px; padding: 10px 12px; min-height: 48px; width: 100%; }
+#msg { border: 1px solid var(--line); background: var(--surface-2); border-radius: 18px 18px 18px 6px; padding: 14px 16px; min-height: 9.5rem; width: 100%; resize: vertical; line-height: 1.55; }
+html[dir="rtl"] #msg { border-radius: 18px 18px 6px 18px; }
+#sender:focus, #msg:focus { outline: 3px solid var(--focus); outline-offset: 1px; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.btn { border: 1px solid var(--line); background: var(--surface); border-radius: 12px; padding: 10px 16px; min-height: 48px; cursor: pointer; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--ink); }
+.btn:hover { border-color: var(--accent); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 700; font-size: var(--step-1); padding-inline: 24px; flex: 1 1 14rem; justify-content: center; }
+.btn.primary:hover { filter: brightness(1.08); }
+.btn svg { width: 20px; height: 20px; flex: none; }
+.hint { font-size: var(--small); color: var(--muted); margin: 0; }
+.err { color: var(--scam); font-weight: 600; margin: 0; }
+.examples { display: flex; flex-direction: column; gap: 8px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 6px 14px; min-height: 40px; cursor: pointer; font-size: var(--small); display: inline-flex; align-items: center; gap: 6px; }
+.chip .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--scam); flex: none; }
+.chip.legit .dot { background: var(--ok); }
+.chip:hover { border-color: var(--accent); }
+
+/* ---------- result */
+.result { display: flex; flex-direction: column; gap: 22px; }
+.verdict { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 18px 18px; display: flex; flex-direction: column; gap: 16px; overflow: hidden; }
+.verdict.red { border-color: var(--scam); }
+.verdict.amber { border-color: var(--warn); }
+.verdict.green { border-color: var(--ok); }
+.stamp-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.stamp { font-family: var(--font-display); font-weight: 700; font-size: var(--step-2); line-height: 1.1; padding: 8px 18px 10px; border: 4px double currentColor; border-radius: 12px; transform: rotate(-6deg); display: inline-block; letter-spacing: 0.02em; }
+html[dir="rtl"] .stamp { transform: rotate(6deg); }
+.red .stamp { color: var(--scam); background: var(--scam-bg); }
+.amber .stamp { color: var(--warn); background: var(--warn-bg); }
+.green .stamp { color: var(--ok); background: var(--ok-bg); }
+.stamp.land { animation: land 260ms cubic-bezier(.2,.9,.3,1.3); }
+@keyframes land { from { transform: scale(1.5) rotate(-14deg); opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .stamp.land { animation: none; } }
+.headline { flex: 1 1 14rem; min-width: 0; }
+.headline .vtext { font-weight: 700; font-size: var(--step-1); line-height: 1.3; margin: 0; }
+.headline .vtype { margin: 2px 0 0; color: var(--muted); }
+.bubble { background: var(--surface-2); border-radius: 18px 18px 18px 6px; padding: 14px 16px; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.75; min-width: 0; }
+.bubble .from { display: block; font-size: var(--small); color: var(--muted); margin-bottom: 4px; }
+mark { color: inherit; padding: 1px 0; border-radius: 3px; }
+mark.rule { background: var(--scam-bg); box-shadow: inset 0 -2px 0 var(--scam); }
+mark.link { background: var(--warn-bg); box-shadow: inset 0 -2px 0 var(--warn); font-family: var(--font-data); font-size: 0.92em; }
+mark.ml { background: transparent; text-decoration: underline dotted var(--accent) 2px; text-underline-offset: 4px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: var(--small); color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { display: inline-block; width: 22px; height: 10px; border-radius: 3px; }
+.legend .l-rule { background: var(--scam-bg); box-shadow: inset 0 -2px 0 var(--scam); }
+.legend .l-link { background: var(--warn-bg); box-shadow: inset 0 -2px 0 var(--warn); }
+.legend .l-ml { border-bottom: 2px dotted var(--accent); height: 6px; }
+.meter { display: flex; flex-direction: column; gap: 6px; }
+.meter .track { position: relative; height: 12px; border-radius: 999px; background: linear-gradient(90deg, var(--ok) 0 var(--a), var(--warn) var(--a) var(--r), var(--scam) var(--r) 100%); opacity: 0.9; }
+html[dir="rtl"] .meter .track { transform: scaleX(-1); }
+.meter .pin { position: absolute; top: -5px; width: 6px; height: 22px; border-radius: 3px; background: var(--ink); box-shadow: 0 0 0 2px var(--surface); transform: translateX(-50%); }
+.meter .nums { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-size: var(--small); color: var(--muted); font-variant-numeric: tabular-nums; }
+.meter .nums b { color: var(--ink); }
+
+section > h2 { font-family: var(--font-display); font-weight: 700; font-size: var(--step-2); margin: 0 0 10px; line-height: 1.2; }
+.reasons { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.reasons li { display: grid; grid-template-columns: 34px 1fr; gap: 10px; align-items: start; }
+.reasons .ic { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: var(--scam-bg); color: var(--scam); }
+.reasons .ic svg { width: 19px; height: 19px; }
+.reasons li.safe .ic { background: var(--ok-bg); color: var(--ok); }
+.reasons li.ai .ic { background: var(--surface-2); color: var(--accent); }
+.reasons li p { margin: 4px 0 0; min-width: 0; }
+.reasons li.crit p { font-weight: 600; }
+
+.xray { display: flex; flex-direction: column; gap: 10px; }
+.xlink { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.xlink .host { font-family: var(--font-data); font-size: 0.98rem; overflow-wrap: anywhere; direction: ltr; text-align: start; }
+html[dir="rtl"] .xlink .host { text-align: right; }
+.xlink .host .owner { font-weight: 500; background: var(--warn-bg); box-shadow: inset 0 -2px 0 var(--warn); border-radius: 3px; }
+.xlink.official .host .owner { background: var(--ok-bg); box-shadow: inset 0 -2px 0 var(--ok); }
+.xlink dl { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 2px 12px; font-size: var(--small); }
+.xlink dt { color: var(--muted); }
+.xlink dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.pill { display: inline-block; font-size: 0.85rem; font-weight: 600; border-radius: 999px; padding: 1px 10px; }
+.pill.official, .pill.reputable { color: var(--ok); background: var(--ok-bg); }
+.pill.suspicious { color: var(--scam); background: var(--scam-bg); }
+.pill.unknown, .pill.chat { color: var(--warn); background: var(--warn-bg); }
+
+.todo { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+.todo p { margin: 0; }
+.todo .do { font-weight: 600; font-size: var(--step-1); line-height: 1.4; }
+.todo .victim { font-size: var(--small); color: var(--muted); border-top: 1px solid var(--line); padding-top: 10px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn.wa { background: var(--ok); color: #fff; border-color: var(--ok); font-weight: 700; }
+:root[data-theme="dark"] .btn.wa { color: var(--bg); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn.wa { color: var(--bg); } }
+
+/* ---------- radar */
+.radar .sub { margin: 0 0 12px; color: var(--muted); font-size: var(--small); }
+.rtotals { display: flex; gap: 22px; flex-wrap: wrap; margin-bottom: 12px; font-variant-numeric: tabular-nums; }
+.rtotals div { display: flex; flex-direction: column; }
+.rtotals b { font-size: var(--step-2); line-height: 1.1; }
+.rtotals span { font-size: var(--small); color: var(--muted); }
+.rlist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.rlist li { display: grid; grid-template-columns: minmax(7rem, 11rem) 1fr 2.5rem; gap: 10px; align-items: center; font-size: var(--small); }
+.rlist .bar { height: 12px; border-radius: 6px; background: var(--surface-2); overflow: hidden; }
+.rlist .bar i { display: block; height: 100%; background: var(--scam); border-radius: 6px; }
+.rlist .n { text-align: end; font-variant-numeric: tabular-nums; font-weight: 600; }
+.radar .empty { background: var(--surface); border: 1px dashed var(--line); border-radius: 12px; padding: 14px; color: var(--muted); margin: 0; }
+
+/* ---------- how it works */
+details.how { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 4px 18px; }
+details.how summary { cursor: pointer; font-weight: 700; padding-block: 12px; font-size: var(--step-1); }
+.brains { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-block: 6px 14px; }
+.brains > div { border: 1px solid var(--line); border-radius: 12px; padding: 12px; min-width: 0; }
+.brains h3 { margin: 0 0 4px; font-size: var(--step-0); }
+.brains p { margin: 0; font-size: var(--small); color: var(--muted); }
+.stats { width: 100%; border-collapse: collapse; font-size: var(--small); font-variant-numeric: tabular-nums; }
+.stats-wrap { overflow-x: auto; margin-bottom: 14px; }
+.stats th, .stats td { text-align: start; padding: 8px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.stats td.num { text-align: end; white-space: nowrap; font-weight: 600; }
+.how p { margin: 0 0 12px; font-size: var(--small); }
+footer { font-size: var(--small); color: var(--muted); display: flex; flex-direction: column; gap: 4px; }
+@media (max-width: 520px) {
+  .brains { grid-template-columns: 1fr; }
+  .rlist li { grid-template-columns: 1fr 2.5rem; }
+  .rlist li .bar { grid-column: 1 / -1; grid-row: 2; }
+}
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+</style>
+
+<div class="wrap">
+  <header class="bar">
+    <div class="brand"><span class="mark" lang="ar">رد البال</span><span class="latin">Redd Lbal</span></div>
+    <div class="langs" role="radiogroup" aria-label="Language">
+      <button type="button" role="radio" data-lang="dar" lang="ar">الدارجة</button>
+      <button type="button" role="radio" data-lang="fr" lang="fr">FR</button>
+      <button type="button" role="radio" data-lang="ar" lang="ar">العربية</button>
+      <button type="button" role="radio" data-lang="en" lang="en">EN</button>
+    </div>
+  </header>
+
+  <main class="stack">
+    <section class="hero" aria-labelledby="h-title">
+      <h1 id="h-title" data-t="hero"></h1>
+      <p data-t="sub"></p>
+    </section>
+
+    <form class="compose" id="form" autocomplete="off">
+      <div class="field">
+        <label for="msg" data-t="msg_label"></label>
+        <textarea id="msg" dir="auto" rows="5"></textarea>
+      </div>
+      <div class="field">
+        <label for="sender" data-t="sender_label"></label>
+        <input id="sender" dir="ltr" inputmode="text">
+      </div>
+      <p class="err" id="err" hidden data-t="empty_error"></p>
+      <div class="row">
+        <button class="btn primary" id="check" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg><span data-t="check"></span></button>
+        <button class="btn" id="clear" type="button"><span data-t="clear"></span></button>
+      </div>
+      <p class="hint" id="privacy"></p>
+      <div class="examples">
+        <p class="hint" data-t="examples"></p>
+        <div class="chips" id="chips"></div>
+      </div>
+    </form>
+
+    <section class="result" id="result" hidden aria-live="polite">
+      <div class="verdict" id="verdict">
+        <div class="stamp-row">
+          <div class="headline"><p class="vtext" id="vtext"></p><p class="vtype" id="vtype"></p></div>
+          <span class="stamp" id="stamp"></span>
+        </div>
+        <div class="bubble" id="bubble"></div>
+        <div class="legend" id="legend"></div>
+        <div class="meter" id="meter">
+          <div class="track" id="track"><span class="pin" id="pin"></span></div>
+          <div class="nums" id="nums"></div>
+        </div>
+        <p class="where" id="where" hidden></p>
+      </div>
+
+      <section aria-labelledby="h-why">
+        <h2 id="h-why" data-t="why"></h2>
+        <ul class="reasons" id="reasons"></ul>
+      </section>
+
+      <section id="xray-sec" aria-labelledby="h-links" hidden>
+        <h2 id="h-links" data-t="links"></h2>
+        <div class="xray" id="xray"></div>
+      </section>
+
+      <section aria-labelledby="h-todo">
+        <h2 id="h-todo" data-t="todo"></h2>
+        <div class="todo">
+          <p class="do" id="do"></p>
+          <p id="tip"></p>
+          <p class="victim" id="victim"></p>
+        </div>
+      </section>
+
+      <div class="actions">
+        <a class="btn wa" id="wa" target="_blank" rel="noopener noreferrer" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 0 1-13.4 7.8L3 21l1.3-4.4A9 9 0 1 1 21 12z"/></svg><span data-t="warn_family"></span></a>
+        <button class="btn" id="copy" type="button" hidden><span data-t="copy_warning"></span></button>
+        <button class="btn" id="listen" type="button" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M17 8a5 5 0 0 1 0 8"/></svg><span data-t="listen"></span></button>
+        <button class="btn" id="again" type="button"><span data-t="again"></span></button>
+      </div>
+      <p class="sr" id="copied" aria-live="polite"></p>
+    </section>
+
+    <section class="radar" aria-labelledby="h-radar">
+      <h2 id="h-radar" data-t="radar_title"></h2>
+      <p class="sub" id="radar-sub"></p>
+      <div id="radar-body"></div>
+    </section>
+
+    <details class="how" id="how">
+      <summary data-t="how"></summary>
+      <div class="brains">
+        <div><h3 data-t="brain1_t"></h3><p data-t="brain1"></p></div>
+        <div><h3 data-t="brain2_t"></h3><p data-t="brain2"></p></div>
+      </div>
+      <p data-t="how_z"></p>
+      <div class="stats-wrap"><table class="stats" id="stats"></table></div>
+      <p data-t="how_data"></p>
+    </details>
+  </main>
+
+  <footer>
+    <span data-t="footer"></span>
+    <span data-t="footer2"></span>
+  </footer>
+</div>
+
+<script type="application/json" id="rl-model">__MODEL_JSON__</script>
+<script type="application/json" id="rl-results">__RESULTS_JSON__</script>
+<script>
+__ENGINE_JS__
+</script>
+<script>
+(function () {
+  "use strict";
+  // ------------------------------------------------------------------ UI text (4 languages)
+  const UI = {
+    dar: { dir: "rtl", htmlLang: "ar",
+      hero: "واش هاد الميساج نصب؟", sub: "لصق الميساج اللي جاك (SMS ولا واتساب) وغادي نقولو ليك فثانية واش نصب، وعلاش.",
+      msg_label: "الميساج", msg_ph: "لصق الميساج هنا…", sender_label: "شكون صيفطو؟ (اختياري: النمرة ولا السمية)", sender_ph: "مثلا ‎+44 7700 900123 ولا CIH BANK",
+      check: "شوف واش نصب", clear: "مسح", empty_error: "لصق شي ميساج قبل.", examples: "ولا جرب مثال:",
+      privacy: "التحليل كيدار فالتيليفون ديالك. الميساج ما كيتصيفط لحتى بلاصة.", privacy_server: "التحليل كيدار فالذاكرة فالسيرفور ({platform}). ما كنخزنو حتى ميساج.", radar_suppressed: "باقي الفحوصات قلال باش نبينوهم: كنخبيو الأرقام اللي تحت 3 باش نحميو الخصوصية.", where: "تحلل على",
+      stamp_red: "نصب!", stamp_amber: "مشكوك", stamp_green: "ما بان والو",
+      risk: "الخطر", ai: "الذكاء الاصطناعي", flags: "علامات", ms: "ms",
+      leg_rule: "علامة خطر", leg_link: "رابط", leg_ml: "كلمات كيعرفها الذكاء الاصطناعي",
+      why: "علاش؟", links: "تحليل الروابط", owner: "مول الموقع", pretends: "كيدير راسو", official_site: "الموقع الرسمي", status: "الحالة",
+      st_official: "رسمي", st_reputable: "معروف", st_suspicious: "مشبوه", st_unknown: "ما معروفش", st_chat: "واتساب / تيليغرام",
+      todo: "شنو دير دابا؟", warn_family: "حذر العائلة فالواتساب", copy_warning: "نسخ التحذير", copied: "تنسخ التحذير.", listen: "سمع النتيجة", again: "شوف ميساج آخر", from: "من:",
+      radar_title: "رادار النصب", radar_sub_db: "شنو تفحص هنا فهاد 14 يوم. ما كنخزنو حتى ميساج: غير النوع والنتيجة.",
+      radar_sub_local: "الفحوصات ديالك فهاد الجهاز. ما كنخزنو حتى ميساج.", radar_empty: "مازال ما تفحص حتى ميساج. كل فحص كيزيد علامة مجهولة هنا (الأمثلة ما كتحسبش).",
+      r_checks: "فحص", r_scams: "نصب", r_susp: "مشكوك", r_types: "أنواع النصب",
+      how: "كيفاش خدام؟", brain1_t: "المخ 1: الذكاء الاصطناعي", brain1: "تعلم من آلاف الميساجات بالدارجة (بالحروف العربية واللاتينية)، الفرنسية، العربية والإنجليزية. كيقرا الحروف ماشي غير الكلمات، داكشي علاش كيفهم 3afak و عافاك.",
+      brain2_t: "المخ 2: القواعد الرسمية", brain2: "التوجيهات ديال DGSSI ووزارة العدل والبنوك: الإدارات ما كتصيفطش من نمر برانية، كتستعمل غير .gov.ma، والبنكة عمرها ما كتطلب الكود.",
+      how_z: "نفس المحرك خدام على IBM LinuxONE (للشركات ديال الاتصالات والبنوك) وفهاد التيليفون بلا أنترنيت. فالمعدل أقل من 1 ميلي ثانية للميساج.",
+      how_data: "البيانات: DODa و MYC و MAC (ميساجات حقيقية بالدارجة) + نماذج ديال النصب مبنية على تحذيرات 2025-2026. الاختبار الحقيقي: الميساجات اللي غادي تجمعو من العائلات.",
+      st_h1: "الاختبار", st_h2: "النتيجة",
+      footer: "Redd Lbal — مشروع IBM Z Datathon 2026، ENIAD بركان.", footer2: "إلا كليكيتي ولا عطيتي معلومات: عيط للبنك ديالك دابا، وبلغ البوليس (19).",
+      ex: { fine: "غرامة مزورة", cih: "CIH مزورة", family: "واحد كيدير راسو ولدك", hijack: "سرقة الواتساب", amana: "كوليس أمانة", job: "خدمة فإسبانيا", otp: "كود حقيقي", chat: "ميساج عادي" } },
+    fr: { dir: "ltr", htmlLang: "fr",
+      hero: "Ce message est-il une arnaque ?", sub: "Collez le SMS ou le message WhatsApp reçu. En une seconde, vous saurez si c'est une arnaque, et pourquoi.",
+      msg_label: "Le message", msg_ph: "Collez le message ici…", sender_label: "Expéditeur (facultatif : numéro ou nom)", sender_ph: "ex. +44 7700 900123 ou CIH BANK",
+      check: "Vérifier", clear: "Effacer", empty_error: "Collez d'abord un message.", examples: "Ou essayez un exemple :",
+      privacy: "L'analyse se fait sur votre téléphone. Le message n'est envoyé nulle part.", privacy_server: "L'analyse se fait en mémoire sur notre serveur ({platform}). Aucun message n'est conservé.", radar_suppressed: "Pas encore assez de vérifications : les nombres inférieurs à 3 sont masqués pour protéger la vie privée.", where: "Analysé sur",
+      stamp_red: "ARNAQUE", stamp_amber: "SUSPECT", stamp_green: "R.A.S.",
+      risk: "Risque", ai: "IA", flags: "signaux", ms: "ms",
+      leg_rule: "signal d'alerte", leg_link: "lien", leg_ml: "mots repérés par l'IA",
+      why: "Pourquoi ?", links: "Radiographie des liens", owner: "Vrai propriétaire", pretends: "Se fait passer pour", official_site: "Site officiel", status: "Statut",
+      st_official: "officiel", st_reputable: "connu", st_suspicious: "suspect", st_unknown: "inconnu", st_chat: "WhatsApp / Telegram",
+      todo: "Que faire maintenant ?", warn_family: "Prévenir la famille sur WhatsApp", copy_warning: "Copier l'alerte", copied: "Alerte copiée.", listen: "Écouter le résultat", again: "Vérifier un autre message", from: "De :",
+      radar_title: "Radar des arnaques", radar_sub_db: "Ce qui a été vérifié ici ces 14 derniers jours. Aucun message n'est conservé : seulement le type et le verdict.",
+      radar_sub_local: "Vos vérifications sur cet appareil. Aucun message n'est conservé.", radar_empty: "Aucune vérification pour l'instant. Chaque vérification ajoute ici une marque anonyme (les exemples ne comptent pas).",
+      r_checks: "vérifications", r_scams: "arnaques", r_susp: "suspects", r_types: "Types d'arnaque",
+      how: "Comment ça marche ?", brain1_t: "Cerveau 1 : l'IA", brain1: "Entraînée sur des milliers de messages en darija (lettres arabes et latines), français, arabe et anglais. Elle lit les lettres, pas seulement les mots : « 3afak » et « عافاك » se ressemblent pour elle.",
+      brain2_t: "Cerveau 2 : les règles officielles", brain2: "Les consignes de la DGSSI, du ministère de la Justice et des banques : l'État n'écrit jamais depuis un numéro étranger, n'utilise que .gov.ma, et aucune banque ne demande vos codes.",
+      how_z: "Le même moteur tourne sur IBM LinuxONE (pour les opérateurs et les banques) et sur ce téléphone, hors ligne. En moyenne, moins d'une milliseconde par message.",
+      how_data: "Données : DODa, MYC et MAC (vrais messages en darija) + modèles d'arnaques construits à partir des alertes 2025-2026. Le vrai test : les messages collectés auprès des familles.",
+      st_h1: "Test", st_h2: "Résultat",
+      footer: "Redd Lbal — projet IBM Z Datathon 2026, ENIAD Berkane.", footer2: "Si vous avez cliqué ou donné des infos : appelez votre banque tout de suite et signalez-le à la police (19).",
+      ex: { fine: "Fausse amende", cih: "Faux CIH", family: "Faux fils", hijack: "Vol WhatsApp", amana: "Faux colis Amana", job: "Faux emploi en Espagne", otp: "Vrai code SMS", chat: "Message normal" } },
+    ar: { dir: "rtl", htmlLang: "ar",
+      hero: "هل هذه الرسالة احتيال؟", sub: "الصق الرسالة النصية أو رسالة واتساب التي وصلتك، وستعرف في ثانية إن كانت احتيالاً ولماذا.",
+      msg_label: "الرسالة", msg_ph: "الصق الرسالة هنا…", sender_label: "المرسل (اختياري: الرقم أو الاسم)", sender_ph: "مثلاً ‎+44 7700 900123 أو CIH BANK",
+      check: "تحقّق", clear: "مسح", empty_error: "الصق رسالة أولاً.", examples: "أو جرّب مثالاً:",
+      privacy: "يتم التحليل على هاتفك. لا تُرسَل الرسالة إلى أي مكان.", privacy_server: "يتم التحليل في الذاكرة على خادمنا ({platform}). لا نحتفظ بأي رسالة.", radar_suppressed: "عدد الفحوص ما زال قليلاً: نُخفي الأعداد الأقل من 3 لحماية الخصوصية.", where: "تم التحليل على",
+      stamp_red: "احتيال", stamp_amber: "مشبوه", stamp_green: "لا شيء مريب",
+      risk: "الخطر", ai: "الذكاء الاصطناعي", flags: "علامات", ms: "ms",
+      leg_rule: "علامة خطر", leg_link: "رابط", leg_ml: "كلمات رصدها الذكاء الاصطناعي",
+      why: "لماذا؟", links: "فحص الروابط", owner: "المالك الحقيقي", pretends: "ينتحل صفة", official_site: "الموقع الرسمي", status: "الحالة",
+      st_official: "رسمي", st_reputable: "معروف", st_suspicious: "مشبوه", st_unknown: "غير معروف", st_chat: "واتساب / تيليغرام",
+      todo: "ماذا تفعل الآن؟", warn_family: "حذّر العائلة عبر واتساب", copy_warning: "نسخ التحذير", copied: "تم نسخ التحذير.", listen: "استمع إلى النتيجة", again: "تحقّق من رسالة أخرى", from: "من:",
+      radar_title: "رادار الاحتيال", radar_sub_db: "ما تم فحصه هنا خلال 14 يوماً. لا نحتفظ بأي رسالة: فقط النوع والنتيجة.",
+      radar_sub_local: "عمليات الفحص على هذا الجهاز. لا نحتفظ بأي رسالة.", radar_empty: "لا توجد عمليات فحص بعد. كل فحص يضيف علامة مجهولة هنا (الأمثلة لا تُحتسب).",
+      r_checks: "فحص", r_scams: "احتيال", r_susp: "مشبوه", r_types: "أنواع الاحتيال",
+      how: "كيف يعمل؟", brain1_t: "العقل 1: الذكاء الاصطناعي", brain1: "تدرّب على آلاف الرسائل بالدارجة (بالحروف العربية واللاتينية) والفرنسية والعربية والإنجليزية، ويقرأ الحروف لا الكلمات فقط.",
+      brain2_t: "العقل 2: القواعد الرسمية", brain2: "توجيهات المديرية العامة لأمن نظم المعلومات ووزارة العدل والأبناك: الإدارات لا تراسلك من أرقام أجنبية، وتستعمل فقط ‎.gov.ma، ولا يطلب أي بنك رموزك.",
+      how_z: "المحرك نفسه يعمل على IBM LinuxONE (لشركات الاتصالات والأبناك) وعلى هذا الهاتف دون إنترنت، بأقل من ميلي ثانية للرسالة في المتوسط.",
+      how_data: "البيانات: DODa و MYC و MAC (رسائل حقيقية بالدارجة) + نماذج احتيال مبنية على تحذيرات 2025-2026. الاختبار الحقيقي: الرسائل التي ستجمعونها من العائلات.",
+      st_h1: "الاختبار", st_h2: "النتيجة",
+      footer: "Redd Lbal — مشروع IBM Z Datathon 2026، ENIAD بركان.", footer2: "إذا ضغطت أو شاركت معلوماتك: اتصل ببنكك فوراً وبلّغ الشرطة (19).",
+      ex: { fine: "مخالفة مزوّرة", cih: "بنك مزيّف", family: "انتحال صفة الابن", hijack: "سرقة واتساب", amana: "طرد مزيّف", job: "عمل وهمي في إسبانيا", otp: "رمز حقيقي", chat: "رسالة عادية" } },
+    en: { dir: "ltr", htmlLang: "en",
+      hero: "Is this message a scam?", sub: "Paste the SMS or WhatsApp message you received. In a second you'll know if it's a scam, and why.",
+      msg_label: "The message", msg_ph: "Paste the message here…", sender_label: "Sender (optional: number or name)", sender_ph: "e.g. +44 7700 900123 or CIH BANK",
+      check: "Check it", clear: "Clear", empty_error: "Paste a message first.", examples: "Or try an example:",
+      privacy: "The check runs on your phone. The message is not sent anywhere.", privacy_server: "The check runs in memory on our server ({platform}). No message is stored.", radar_suppressed: "Not enough checks to publish yet: counts under 3 are hidden to protect privacy.", where: "Checked on",
+      stamp_red: "SCAM", stamp_amber: "SUSPECT", stamp_green: "NO SIGNS",
+      risk: "Risk", ai: "AI", flags: "red flags", ms: "ms",
+      leg_rule: "red flag", leg_link: "link", leg_ml: "words the AI recognised",
+      why: "Why?", links: "Link X-ray", owner: "Real owner", pretends: "Pretends to be", official_site: "Official site", status: "Status",
+      st_official: "official", st_reputable: "well known", st_suspicious: "suspicious", st_unknown: "unknown", st_chat: "WhatsApp / Telegram",
+      todo: "What to do now", warn_family: "Warn the family on WhatsApp", copy_warning: "Copy the warning", copied: "Warning copied.", listen: "Listen to the result", again: "Check another message", from: "From:",
+      radar_title: "Scam radar", radar_sub_db: "What was checked here in the last 14 days. No message is stored: only the scam type and the verdict.",
+      radar_sub_local: "Your checks on this device. No message is stored.", radar_empty: "No checks yet. Each check adds one anonymous mark here (examples don't count).",
+      r_checks: "checks", r_scams: "scams", r_susp: "suspicious", r_types: "Scam types",
+      how: "How does it work?", brain1_t: "Brain 1: the AI", brain1: "Trained on thousands of messages in Darija (Arabic and Latin letters), French, Arabic and English. It reads letters, not just words, so \"3afak\" and \"عافاك\" look alike to it.",
+      brain2_t: "Brain 2: official rules", brain2: "Guidance from DGSSI, the Ministry of Justice and the banks: authorities never text from foreign numbers, only use .gov.ma sites, and no bank ever asks for your codes.",
+      how_z: "The same engine runs on IBM LinuxONE (for telecom operators and banks) and on this phone, offline. Under a millisecond per message on average.",
+      how_data: "Data: DODa, MYC and MAC (real Darija messages) plus scam templates built from the 2025-2026 alerts. The real test: messages collected from families.",
+      st_h1: "Test", st_h2: "Result",
+      footer: "Redd Lbal — IBM Z Datathon 2026 project, ENIAD Berkane.", footer2: "If you clicked or shared details: call your bank now and report it to the police (19).",
+      ex: { fine: "Fake traffic fine", cih: "Fake CIH bank", family: "Fake son, new number", hijack: "WhatsApp hijack", amana: "Fake Amana parcel", job: "Fake job in Spain", otp: "Real code SMS", chat: "Normal message" } },
+  };
+  const EXAMPLES = [
+    { k: "fine", scam: true, sender: "+44 7520 113 284", text: "المملكة المغربية - وزارة العدل. إشعار بالتنفيذ الإداري رقم 4471/2026: تم رصد مخالفة مرورية بواسطة كاميرا المراقبة. يتعين أداء الغرامة داخل أجل 48 ساعة تفاديا للحجز على حسابكم البنكي. للاطلاع على الفيديو والأداء: https://justice-amendes.icu/v/4471" },
+    { k: "cih", scam: true, sender: "", text: "CIH BANK: Une opération de 6 980,00 MAD a été initiée depuis un nouvel appareil. Si vous n'êtes pas à l'origine de cette opération, annulez-la immédiatement : https://cih-annulation.com/secure" },
+    { k: "family", scam: true, sender: "+212 6 47 22 18 90", text: "baba 3afak sift liya 1500 dh daba f Wafacash, ana f mochkil kbir, ghadi nfhamek mn b3d. matgoul l 7ta wa7ed" },
+    { k: "hijack", scam: true, sender: "", text: "salam, sme7 lia ghlatt w sifet lik wa7d l code dyal 6 dyal ar9am, 3afak 3awd sifto liya" },
+    { k: "amana", scam: true, sender: "", text: "عندك كوليس فأمانة ما قدرناش نوصلوه ليك، أكد العنوان ديالك وخلص 10 دراهم ديال التوصيل هنا amana-suivi.shop" },
+    { k: "job", scam: true, sender: "", text: "Recrutement urgent pour la récolte des fraises à Huelva (Espagne). Contrat de 6 mois, logement offert. Frais de dossier : 1 800 DH par Cash Plus. Places très limitées !" },
+    { k: "otp", scam: false, sender: "CIH BANK", text: "Votre code de validation CIH Mobile est 739214. Ne le communiquez jamais à personne, même à un conseiller CIH." },
+    { k: "chat", scam: false, sender: "", text: "khouya fin wslti? rana kantsnawk f l9ahwa, jib m3ak lkhobz 3afak" },
+  ];
+  const ICONS = {
+    link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+    key: '<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3"/>',
+    money: '<rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/>',
+    clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    phone: '<rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18h2"/>',
+    people: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"/>',
+    gift: '<rect x="3" y="8" width="18" height="13" rx="1.5"/><path d="M12 8v13M3 12h18M12 8c-2-4-6-4-6-1.5S9 8 12 8c3 0 6-1 6-1.5S14 4 12 8z"/>',
+    check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+    ai: '<rect x="5" y="5" width="14" height="14" rx="3"/><path d="M9 2.5v2.5M15 2.5v2.5M9 19v2.5M15 19v2.5M2.5 9h2.5M2.5 15h2.5M19 9h2.5M19 15h2.5"/>',
+    alert: '<path d="M12 3l9.5 17h-19z"/><path d="M12 10v4.5M12 17.5v.1"/>',
+  };
+  const ICON_FOR = (id) => /family|number/.test(id) ? "people"
+    : id.startsWith("link_") || id.includes("link") ? "link"
+    : /credential|otp|hijack|info_request/.test(id) ? "key"
+    : /money|fee|pay|job|invest|prize|advance|lure|task/.test(id) ? (/prize|lottery|lure/.test(id) ? "gift" : "money")
+    : /urgency|threat|secrecy/.test(id) ? "clock"
+    : /sender|call|phone/.test(id) ? "phone" : "alert";
+  const svg = (name) => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICONS[name] + "</svg>";
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const $ = (id) => document.getElementById(id);
+  const store = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* ignore */ } } };
+
+  // ------------------------------------------------------------------ engine
+  const bundle = JSON.parse($("rl-model").textContent);
+  let results = null;
+  try { results = JSON.parse($("rl-results").textContent); } catch (e) { results = null; }
+  const engine = new window.ReddLbal.Engine(bundle);
+  // Served by the Redd Lbal API (server/app.py) the page asks LinuxONE; anywhere else it runs on the device.
+  const SERVER = !!window.RL_SERVER;
+  let serverInfo = null;
+  if (SERVER) fetch("api/health").then((r) => r.json()).then((j) => { serverInfo = j; applyLang(); }).catch(() => { serverInfo = null; });
+  let lang = store.get("rl-lang") || ((navigator.language || "").startsWith("fr") ? "fr" : (navigator.language || "").startsWith("en") ? "en" : "dar");
+  if (!UI[lang]) lang = "dar";
+  let last = null;          // {text, sender, r}
+
+  function applyLang() {
+    const u = UI[lang];
+    document.documentElement.lang = u.htmlLang;
+    document.documentElement.dir = u.dir;
+    document.querySelectorAll("[data-t]").forEach((el) => { const v = u[el.dataset.t]; if (v !== undefined) el.textContent = v; });
+    $("msg").placeholder = u.msg_ph; $("sender").placeholder = u.sender_ph;
+    document.querySelectorAll(".langs button").forEach((b) => b.setAttribute("aria-checked", String(b.dataset.lang === lang)));
+    $("privacy").textContent = SERVER ? u.privacy_server.replace("{platform}", (serverInfo && serverInfo.platform) || "IBM LinuxONE") : u.privacy;
+    $("chips").innerHTML = EXAMPLES.map((e, i) => '<button type="button" class="chip' + (e.scam ? "" : " legit") + '" data-ex="' + i + '"><span class="dot" aria-hidden="true"></span>' + esc(u.ex[e.k]) + "</button>").join("");
+    renderStats();
+    radarRender();
+    if (last) render(last, false);
+  }
+
+  // ------------------------------------------------------------------ result rendering
+  function highlighted(text, hls) {
+    const n = text.length, cls = new Array(n).fill(null);
+    const rank = { ml: 1, rule: 2, link: 3 };
+    for (const h of hls) for (let i = h.s; i < h.e && i < n; i++) if (!cls[i] || rank[h.kind] > rank[cls[i]]) cls[i] = h.kind;
+    let out = "", cur = null, buf = "";
+    const flush = () => { if (!buf) return; out += cur ? '<mark class="' + cur + '">' + esc(buf) + "</mark>" : esc(buf); buf = ""; };
+    for (let i = 0; i < n; i++) { if (cls[i] !== cur) { flush(); cur = cls[i]; } buf += text[i]; }
+    flush();
+    return out;
+  }
+
+  function hostHtml(l) {
+    const h = l.host || "", reg = l.registered || "";
+    if (reg && h.endsWith(reg)) return esc(h.slice(0, h.length - reg.length)) + '<span class="owner">' + esc(reg) + "</span>";
+    return '<span class="owner">' + esc(h) + "</span>";
+  }
+
+  function render(item, fresh) {
+    const { text, sender, r } = item;
+    const u = UI[lang], e = engine.explain(r, lang);
+    const res = $("result");
+    res.hidden = false;
+    const v = $("verdict");
+    v.className = "verdict " + r.verdict;
+    $("vtext").textContent = e.verdict;
+    $("vtype").textContent = e.type || "";
+    const st = $("stamp");
+    st.textContent = u["stamp_" + r.verdict];
+    if (fresh) { st.classList.remove("land"); void st.offsetWidth; st.classList.add("land"); }
+    $("bubble").innerHTML = (sender ? '<span class="from">' + esc(u.from) + ' <bdi dir="ltr">' + esc(sender) + "</bdi></span>" : "") + '<span dir="auto">' + highlighted(text, r.highlights) + "</span>";
+    const kinds = new Set(r.highlights.map((h) => h.kind));
+    $("legend").innerHTML = [["rule", u.leg_rule], ["link", u.leg_link], ["ml", u.leg_ml]].filter(([k]) => kinds.has(k))
+      .map(([k, t]) => '<span><i class="l-' + k + '"></i>' + esc(t) + "</span>").join("");
+    const fz = bundle.fusion;
+    $("track").style.setProperty("--a", (fz.t_amber * 100) + "%");
+    $("track").style.setProperty("--r", (fz.t_red * 100) + "%");
+    $("pin").style.left = Math.max(1, Math.min(99, r.risk * 100)) + "%";
+    const nflags = r.signals.filter((s) => !s.safe).length;
+    $("nums").innerHTML = "<span>" + esc(u.risk) + ' <b><bdi dir="ltr">' + Math.round(r.risk * 100) + "%</bdi></b></span><span>" + esc(u.ai) + ' <b><bdi dir="ltr">' + Math.round(r.ml.prob * 100) + "%</bdi></b></span><span><b>" + nflags + "</b> " + esc(u.flags) + '</span><span><bdi dir="ltr"><b>' + r.latency_ms.toFixed(1) + "</b> " + u.ms + "</bdi></span>";
+    $("reasons").innerHTML = e.reasons.map((x) => {
+      const icon = x.id === "ml_high" ? "ai" : (x.safe ? "check" : ICON_FOR(x.id));
+      const c = x.safe ? "safe" : (x.id === "ml_high" ? "ai" : (x.critical ? "crit" : ""));
+      return '<li class="' + c + '"><span class="ic">' + svg(icon) + '</span><p dir="auto">' + esc(x.text) + "</p></li>";
+    }).join("");
+    if (r.links.length) {
+      $("xray-sec").hidden = false;
+      $("xray").innerHTML = r.links.map((l) => {
+        const br = l.brand && bundle.knowledge.BRANDS[l.brand];
+        const bad = l.status === "suspicious";
+        let rows = "<dt>" + esc(u.owner) + "</dt><dd dir=\"ltr\">" + esc(l.registered || l.host) + "</dd>" +
+                   "<dt>" + esc(u.status) + '</dt><dd><span class="pill ' + l.status + '">' + esc(u["st_" + l.status]) + "</span></dd>";
+        if (bad && br) rows += "<dt>" + esc(u.pretends) + "</dt><dd>" + esc(br.label) + "</dd><dt>" + esc(u.official_site) + '</dt><dd dir="ltr">' + esc(l.official || "") + "</dd>";
+        return '<div class="xlink ' + l.status + '"><div class="host">' + hostHtml(l) + "</div><dl>" + rows + "</dl></div>";
+      }).join("");
+    } else $("xray-sec").hidden = true;
+    $("do").textContent = e.do;
+    $("tip").textContent = e.tip || "";
+    $("tip").hidden = !e.tip;
+    $("victim").textContent = e.if_victim || "";
+    $("victim").hidden = !e.if_victim;
+    const wa = $("wa"), cp = $("copy");
+    if (e.share) { wa.hidden = false; cp.hidden = false; wa.href = "https://wa.me/?text=" + encodeURIComponent(e.share); }
+    else { wa.hidden = true; cp.hidden = true; }
+    $("listen").hidden = !("speechSynthesis" in window);
+    const wh = $("where");
+    if (item.server) { wh.hidden = false; wh.innerHTML = esc(u.where) + " <b>" + esc(item.server.platform || "server") + "</b> " + esc(String(item.server.ms)) + " ms"; }
+    else wh.hidden = true;
+    if (fresh) res.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+  }
+
+  async function runCheck() {
+    const text = $("msg").value;
+    const sender = $("sender").value.trim();
+    if (!text.trim()) { $("err").hidden = false; $("msg").focus(); return; }
+    $("err").hidden = true;
+    const isExample = EXAMPLES.some((x) => x.text === text);
+    let r = null, server = null;
+    if (SERVER) {
+      try {
+        const t0 = performance.now();
+        const resp = await fetch("api/check", { method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text, sender: sender || null, count: !isExample }) });
+        if (resp.ok) { const j = await resp.json(); r = j.result; server = { platform: j.platform, ms: j.result.latency_ms, rtt: Math.round(performance.now() - t0) }; }
+      } catch (e) { r = null; }
+    }
+    if (!r) r = engine.analyze(text, sender || null);
+    last = { text, sender, r, server };
+    render(last, true);
+    if (!isExample && !server) radarAdd(r);
+    if (server) radarFetchServer();
+  }
+
+  // ------------------------------------------------------------------ evaluation table (from reports/results.json)
+  function pct(x) {
+    if (x > 0 && x < 0.001) return (x * 100).toFixed(3).replace(/0+$/, "") + "%";
+    return (Math.round(x * 1000) / 10).toString().replace(/\.0$/, "") + "%";
+  }
+  function renderStats() {
+    const t = $("stats");
+    if (!results) { t.hidden = true; return; }
+    const L = {
+      dar: ["ميساجات حقيقية بالدارجة/العربية (18,503): إنذار غالط", "ميساجات نصب بكتابة جديدة: تشدات", "مجموعة عمياء (أول مرة): نصب تشد / إنذار غالط", "النسخة القديمة على نفس الميساجات: نصب تشد", "مواقع رسمية مغربية اللي النسخة القديمة قالت خطيرة", "السرعة على CPU واحد"],
+      fr: ["Vrais messages darija/arabe (18 503) : fausses alertes", "Arnaques à formulation inédite : détectées", "Jeu aveugle (1er passage) : arnaques détectées / fausses alertes", "Ancien prototype sur les mêmes messages : arnaques détectées", "Sites officiels marocains classés « danger » par l'ancien prototype", "Vitesse sur un seul cœur CPU"],
+      ar: ["رسائل حقيقية بالدارجة/العربية (18,503): إنذارات خاطئة", "رسائل احتيال بصياغة جديدة: تم رصدها", "مجموعة عمياء (أول تشغيل): احتيال مرصود / إنذارات خاطئة", "النموذج القديم على نفس الرسائل: احتيال مرصود", "مواقع مغربية رسمية صنّفها النموذج القديم خطيرة", "السرعة على نواة معالج واحدة"],
+      en: ["Real Darija/Arabic messages (18,503): false alarms", "Scams worded in new ways: caught", "Blind set (first run): scams caught / false alarms", "Original prototype, same messages: scams caught", "Official Moroccan sites the original flagged as dangerous", "Speed on one CPU core"],
+    }[lang];
+    const R = results;
+    const rows = [
+      [L[0], pct(R.real_moroccan_messages.legit_red)],
+      [L[1], pct(R.unseen_templates.scam_flagged)],
+      [L[2], R.blind_first_run ? (pct(R.blind_first_run.scam_flagged) + " / " + pct(R.blind_first_run.legit_red)) : "-"],
+      [L[3], R.original_scam_caught_range || "-"],
+      [L[4], R.official_moroccan_sites.original_flagged_danger + " / " + R.official_moroccan_sites.n],
+      [L[5], R.latency_ms.p50 + " ms"],
+    ];
+    t.hidden = false;
+    t.innerHTML = "<thead><tr><th>" + esc(UI[lang].st_h1) + '</th><th style="text-align:end">' + esc(UI[lang].st_h2) + "</th></tr></thead><tbody>" +
+      rows.map(([a, b]) => "<tr><td>" + esc(a) + '</td><td class="num">' + esc(b) + "</td></tr>").join("") + "</tbody>";
+  }
+
+  // ------------------------------------------------------------------ scam radar (anonymous counts only)
+  // Shared mode (artifact db): each viewer writes ONE doc radar/<their id> with counts per day,
+  // everyone reads the sum. Local mode: this device only. No message text is ever stored.
+  const radar = { mode: "local", docs: {}, mine: null, ref: null, uid: null, canWrite: true, server: null };
+  const today = () => new Date().toISOString().slice(0, 10);
+  function emptyMine() { return { days: {} }; }
+  function loadLocal() { try { return JSON.parse(store.get("rl-radar") || "") || emptyMine(); } catch (e) { return emptyMine(); } }
+  radar.mine = loadLocal();
+  function prune(m) {
+    const keep = Object.keys(m.days).sort().slice(-14), out = { days: {} };
+    for (const d of keep) out.days[d] = m.days[d];
+    return out;
+  }
+  async function radarAdd(r) {
+    const key = r.verdict + ":" + (r.type || "none");
+    const m = radar.mine = prune(radar.mine);
+    const d = m.days[today()] || (m.days[today()] = {});
+    d[key] = (d[key] || 0) + 1;
+    if (radar.mode === "db" && radar.ref && radar.canWrite) {
+      try { await radar.ref.set({ days: m.days }); } catch (e) { radar.canWrite = false; }
+    }
+    store.set("rl-radar", JSON.stringify(m));
+    radarRender();
+  }
+  function radarTotals() {
+    const all = radar.mode === "db" ? Object.values(radar.docs) : [radar.mine];
+    if (radar.mode === "db" && radar.uid && !radar.docs[radar.uid]) all.push(radar.mine);
+    const cutoff = new Date(Date.now() - 13 * 864e5).toISOString().slice(0, 10);
+    const tot = { checks: 0, red: 0, amber: 0, types: {} };
+    for (const doc of all) for (const [day, counts] of Object.entries((doc && doc.days) || {})) {
+      if (day < cutoff) continue;
+      for (const [k, n] of Object.entries(counts)) {
+        const [v, typ] = k.split(":");
+        tot.checks += n;
+        if (v === "red") tot.red += n;
+        if (v === "amber") tot.amber += n;
+        if (v !== "green" && typ && typ !== "none") tot.types[typ] = (tot.types[typ] || 0) + n;
+      }
+    }
+    return tot;
+  }
+  async function radarFetchServer() {
+    try { const j = await (await fetch("api/radar")).json(); radar.mode = "server"; radar.server = j; radarRender(); } catch (e) { /* keep */ }
+  }
+  function radarRender() {
+    const u = UI[lang];
+    const t = radar.mode === "server" && radar.server ? radar.server.totals : radarTotals();
+    $("radar-sub").textContent = radar.mode === "local" ? u.radar_sub_local : u.radar_sub_db;
+    if (!t.checks) { $("radar-body").innerHTML = '<p class="empty">' + esc(radar.mode === "server" && radar.server ? u.radar_suppressed : u.radar_empty) + "</p>"; return; }
+    const types = Object.entries(t.types).sort((a, b) => b[1] - a[1]).slice(0, 8);
+    const max = Math.max(1, ...types.map((x) => x[1]));
+    const name = (typ) => (bundle.knowledge.TEXT["type_" + typ] || {})[lang] || typ;
+    $("radar-body").innerHTML = '<div class="rtotals"><div><b>' + t.checks + "</b><span>" + esc(u.r_checks) + "</span></div><div><b>" + t.red + "</b><span>" + esc(u.r_scams) + "</span></div><div><b>" + t.amber + "</b><span>" + esc(u.r_susp) + "</span></div></div>" +
+      (types.length ? '<ul class="rlist" aria-label="' + esc(u.r_types) + '">' + types.map(([typ, n]) => '<li><span>' + esc(name(typ)) + '</span><span class="bar"><i style="width:' + Math.round(n / max * 100) + '%"></i></span><span class="n">' + n + "</span></li>").join("") + "</ul>" : "");
+  }
+  (async function connectRadar() {
+    if (SERVER) { radarFetchServer(); return; }
+    if (!window.claude || !window.claude.use) return;
+    try {
+      const [db, user] = await Promise.all([window.claude.use("db"), window.claude.use("user")]);
+      if (!db || !user) return;
+      const uid = await user.id();
+      if (!uid) return;
+      radar.uid = uid;
+      radar.ref = db.doc("radar/" + uid);
+      try {
+        const snap = await radar.ref.get();
+        if (snap.exists) {
+          const remote = snap.data() || {};
+          const merged = { days: Object.assign({}, remote.days || {}) };
+          radar.mine = prune(merged);
+        }
+      } catch (e) { /* keep local */ }
+      radar.mode = "db";
+      db.collection("radar").onSnapshot((qs) => {
+        const docs = {};
+        qs.docs.forEach((d) => { if (d.exists) docs[d.id] = d.data(); });
+        radar.docs = docs;
+        radarRender();
+      }, () => { radar.mode = "local"; radarRender(); });
+      radarRender();
+    } catch (e) { radar.mode = "local"; radarRender(); }
+  })();
+
+  // ------------------------------------------------------------------ events
+  document.querySelector(".langs").addEventListener("click", (ev) => {
+    const b = ev.target.closest("button[data-lang]"); if (!b) return;
+    lang = b.dataset.lang; store.set("rl-lang", lang); applyLang();
+  });
+  $("chips").addEventListener("click", (ev) => {
+    const b = ev.target.closest("[data-ex]"); if (!b) return;
+    const x = EXAMPLES[+b.dataset.ex];
+    $("msg").value = x.text; $("sender").value = x.sender || "";
+    runCheck();
+  });
+  $("form").addEventListener("submit", (ev) => { ev.preventDefault(); runCheck(); });
+  $("clear").addEventListener("click", () => { $("msg").value = ""; $("sender").value = ""; $("result").hidden = true; last = null; $("msg").focus(); });
+  $("again").addEventListener("click", () => { $("msg").value = ""; $("sender").value = ""; $("result").hidden = true; last = null; window.scrollTo({ top: 0 }); $("msg").focus(); });
+  $("copy").addEventListener("click", () => {
+    if (!last) return;
+    const text = engine.explain(last.r, lang).share || "";
+    const done = () => { $("copied").textContent = UI[lang].copied; $("copy").querySelector("span").textContent = UI[lang].copied; setTimeout(() => { $("copy").querySelector("span").textContent = UI[lang].copy_warning; }, 2000); };
+    const fallback = () => { const ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); } catch (e) { /* ignore */ } ta.remove(); done(); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback); else fallback();
+  });
+  $("listen").addEventListener("click", () => {
+    if (!last || !("speechSynthesis" in window)) return;
+    const e = engine.explain(last.r, lang);
+    const say = [e.verdict, e.type, ...e.reasons.slice(0, 3).map((x) => x.text), e.do].filter(Boolean).join(". ");
+    const ut = new SpeechSynthesisUtterance(say);
+    ut.lang = { dar: "ar-MA", ar: "ar-SA", fr: "fr-FR", en: "en-US" }[lang];
+    const voices = speechSynthesis.getVoices();
+    const vv = voices.find((v) => v.lang && v.lang.toLowerCase().startsWith(ut.lang.slice(0, 2)));
+    if (vv) ut.voice = vv;
+    ut.rate = 0.92;
+    speechSynthesis.cancel(); speechSynthesis.speak(ut);
+  });
+
+  applyLang();
+  // open in a working state: show one example result so the page explains itself
+  if (!last) { const x = EXAMPLES[0]; $("msg").value = x.text; $("sender").value = x.sender; const r = engine.analyze(x.text, x.sender); last = { text: x.text, sender: x.sender, r }; render(last, false); }
+})();
+</script>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">ScamShield - Vérificateur de sécurité</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-layout">
+    
+    <!-- ====================================================================
+         BARRE SUPÉRIEURE : Brand, Langues (Drapeaux SVG), Thème & Audio
+         ==================================================================== -->
+    <header class="top-nav" aria-label="Réglages et navigation">
+      <div class="brand-group">
+        <div class="brand-logo" aria-hidden="true">
+          <svg class="shield-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+        </div>
+        <div class="brand-text-wrapper">
+          <span class="brand-name">ScamShield</span>
+          <span id="brand-tagline" class="brand-tagline">Protection intelligente</span>
+        </div>
+      </div>
+
+      <div class="controls-group">
+        <!-- Sélecteur de langue avec drapeaux précis -->
+        <div class="lang-selector-group">
+          <div class="lang-buttons" role="radiogroup" aria-label="Choisir la langue">
+            <button type="button" class="lang-btn active" data-lang="fr" role="radio" aria-checked="true" title="Français">
+              <svg class="flag-icon" viewBox="0 0 640 480" width="24" height="17" aria-hidden="true">
+                <path fill="#002654" d="M0 0h213.3v480H0z"/>
+                <path fill="#ffffff" d="M213.3 0h213.4v480H213.3z"/>
+                <path fill="#ce1126" d="M426.7 0H640v480H426.7z"/>
+              </svg>
+              <span>FR</span>
+            </button>
+
+            <button type="button" class="lang-btn" data-lang="en" role="radio" aria-checked="false" title="English">
+              <svg class="flag-icon" viewBox="0 0 640 480" width="24" height="17" aria-hidden="true">
+                <path fill="#012169" d="M0 0h640v480H0z"/>
+                <path fill="#FFF" d="m75 0 245 180L565 0h75v60L435 240l205 180v60h-75L320 300 75 480H0v-60l205-180L0 60V0h75z"/>
+                <path fill="#C8102E" d="m420 280 220 160v40L360 280h60zM220 200 0 40V0l280 200h-60zM0 440l180-140h60L20 480H0v-40zM640 40 460 180h-60L620 0h20v40z"/>
+                <path fill="#FFF" d="M240 0h160v480H240zM0 160h640v160H0z"/>
+                <path fill="#C8102E" d="M280 0h80v480h-80zM0 200h640v80H0z"/>
+              </svg>
+              <span>EN</span>
+            </button>
+
+            <button type="button" class="lang-btn" data-lang="es" role="radio" aria-checked="false" title="Español">
+              <svg class="flag-icon" viewBox="0 0 640 480" width="24" height="17" aria-hidden="true">
+                <path fill="#c60b1e" d="M0 0h640v480H0z"/>
+                <path fill="#ffc400" d="M0 120h640v240H0z"/>
+              </svg>
+              <span>ES</span>
+            </button>
+
+            <button type="button" class="lang-btn" data-lang="ar" role="radio" aria-checked="false" title="العربية">
+              <svg class="flag-icon" viewBox="0 0 640 480" width="24" height="17" aria-hidden="true">
+                <rect width="640" height="480" fill="#006C35"/>
+                <path fill="#ffffff" d="M160 260h320v16H160zM200 240l-40 28 40 28v-16h240v-24H200z"/>
+              </svg>
+              <span>عربي</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Bouton Partager (Web Share) -->
+        <button type="button" id="btn-share-app" class="icon-toggle-btn" aria-label="Partager ScamShield" title="Partager ScamShield">
+          <span aria-hidden="true">📤</span>
+        </button>
+
+        <!-- Bouton synthèse vocale (Accessibilité Senior) -->
+        <button type="button" id="tts-toggle" class="icon-toggle-btn" aria-label="Activer la lecture vocale" title="Lecture vocale">
+          <span id="tts-icon" aria-hidden="true">🔊</span>
+        </button>
+
+        <!-- Bascule Thème Sombre / Clair -->
+        <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Changer de thème">
+          <span id="theme-icon" class="theme-icon" aria-hidden="true">🌙</span>
+          <span id="theme-text">Mode Sombre</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ====================================================================
+         ÉCRAN 1 : SAISIE (Visible par défaut)
+         ==================================================================== -->
+    <main id="screen-input" class="screen-container">
+      
+      <!-- En-tête de l'Écran 1 -->
+      <section class="hero-header">
+        <div class="badge-status">
+          <span class="pulse-dot" aria-hidden="true"></span>
+          <span id="badge-text">IA & Bouclier Heuristique Actifs</span>
+        </div>
+        <h1 id="main-title" class="main-title">🛡️ Vérificateur de sécurité</h1>
+        <p id="subtitle" class="subtitle">
+          Un doute sur un SMS, un e-mail ou un lien reçu ? Collez-le ici pour vérifier s'il s'agit d'une tentative d'arnaque.
+        </p>
+      </section>
+
+      <!-- Bannière de lien partagé / reçu par URL -->
+      <div id="shared-incoming-banner" class="shared-incoming-banner hidden" role="status">
+        <span class="shared-icon" aria-hidden="true">📥</span>
+        <span id="shared-incoming-text">Contenu partagé détecté ! Analyse automatique en cours...</span>
+      </div>
+
+      <!-- Carte principale de saisie -->
+      <section class="card main-input-card" aria-labelledby="label-texte">
+        <div class="card-header-row">
+          <label id="label-texte" for="texte-input" class="section-label">
+            Message ou lien suspect à vérifier :
+          </label>
+          <div class="quick-tools">
+            <button type="button" id="btn-coller" class="tool-btn" title="Coller depuis le presse-papier">
+              <span class="tool-icon" aria-hidden="true">📋</span>
+              <span id="tool-paste-text">Coller</span>
+            </button>
+            <button type="button" id="btn-effacer-texte" class="tool-btn hidden" title="Effacer le texte">
+              <span class="tool-icon" aria-hidden="true">✕</span>
+              <span id="tool-clear-text">Effacer</span>
+            </button>
+          </div>
+        </div>
+        
+        <div class="textarea-wrapper">
+          <textarea 
+            id="texte-input" 
+            class="large-textarea" 
+            rows="5" 
+            placeholder="Collez un message ou un lien suspect ici..."
+            aria-describedby="aide-texte"
+          ></textarea>
+        </div>
+        
+        <div class="textarea-footer-row">
+          <p id="aide-texte" class="help-text">
+            💡 Astuce : Vous pouvez cliquer sur le bouton <strong>"Coller"</strong> ci-dessus ou faire un clic droit dans la case.
+          </p>
+          <span id="char-count" class="char-count">0 caractère</span>
+        </div>
+
+        <!-- Sélecteur de type façon Segmented Control iOS -->
+        <div class="type-selection-area">
+          <span id="label-type" class="type-label">Type de contenu :</span>
+          <div class="segmented-control" role="radiogroup" aria-labelledby="label-type">
+            <button type="button" class="segment-btn active" data-type="auto" role="radio" aria-checked="true">
+              <span class="icon" aria-hidden="true">⚡</span>
+              <span id="type-auto-text">Automatique</span>
+            </button>
+            <button type="button" class="segment-btn" data-type="sms" role="radio" aria-checked="false">
+              <span class="icon" aria-hidden="true">📱</span>
+              <span id="type-sms-text">SMS</span>
+            </button>
+            <button type="button" class="segment-btn" data-type="email" role="radio" aria-checked="false">
+              <span class="icon" aria-hidden="true">✉️</span>
+              <span id="type-email-text">Email</span>
+            </button>
+            <button type="button" class="segment-btn" data-type="lien" role="radio" aria-checked="false">
+              <span class="icon" aria-hidden="true">🔗</span>
+              <span id="type-lien-text">Lien Internet</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Exemples rapides à tester en 1 clic -->
+        <div class="examples-container">
+          <span id="examples-label" class="examples-title">🧪 Ou testez un exemple en 1 clic :</span>
+          <div class="examples-chips">
+            <button type="button" class="chip-btn chip-danger" data-example="sms-scam">
+              <span class="chip-icon">🚨</span>
+              <span class="chip-text">Faux SMS Colis</span>
+            </button>
+            <button type="button" class="chip-btn chip-danger" data-example="email-scam">
+              <span class="chip-icon">🚨</span>
+              <span class="chip-text">Fausse Banque</span>
+            </button>
+            <button type="button" class="chip-btn chip-danger" data-example="url-scam">
+              <span class="chip-icon">🚨</span>
+              <span class="chip-text">Lien imitation (paypa1.com)</span>
+            </button>
+            <button type="button" class="chip-btn chip-safe" data-example="msg-safe">
+              <span class="chip-icon">✅</span>
+              <span class="chip-text">Message normal</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Message d'alerte si saisie vide -->
+      <div id="input-error" class="warning-banner hidden" role="alert">
+        <span class="warning-icon" aria-hidden="true">⚠️</span>
+        <span id="input-error-text" class="warning-text">Veuillez d'abord écrire ou coller un message ou un lien dans la case ci-dessus.</span>
+      </div>
+
+      <!-- Énorme bouton d'action principal moderne (Indigo #4F46E5) -->
+      <div class="actions-group">
+        <button type="button" id="btn-analyser" class="btn-action-primary">
+          <span class="btn-icon" aria-hidden="true">✨</span>
+          <span id="btn-analyser-text">Analyser la menace</span>
+        </button>
+      </div>
+
+    </main>
+
+    <!-- ====================================================================
+         INDICATEUR DE TRANSITION & CHARGEMENT
+         ==================================================================== -->
+    <div id="screen-loading" class="screen-container loading-screen hidden" role="status" aria-live="polite">
+      <div class="card loading-card">
+        <div class="modern-spinner" aria-hidden="true">
+          <div class="spinner-ring outer"></div>
+          <div class="spinner-ring inner"></div>
+          <div class="spinner-center">🛡️</div>
+        </div>
+        <h2 id="loading-title" class="loading-title">Analyse en cours...</h2>
+        <p id="loading-text" class="loading-subtitle">
+          Vérification de la sécurité de votre message. Veuillez patienter quelques instants.
+        </p>
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         ÉCRAN 2 : RÉSULTAT (Card centrale animée façon Design Universel)
+         ==================================================================== -->
+    <main id="screen-result" class="screen-container result-screen hidden" aria-live="assertive">
+      
+      <div id="result-card" class="card result-card">
+        
+        <!-- Badge supérieur de verdict -->
+        <div id="result-badge" class="result-status-badge">
+          <span id="result-badge-icon" aria-hidden="true">🛡️</span>
+          <span id="result-badge-text">Analyse terminée</span>
+        </div>
+
+        <!-- Grande icône circulaire stylisée -->
+        <div id="result-icon-container" class="result-icon-wrapper" aria-hidden="true">
+          <span id="result-icon" class="huge-result-icon">🚨</span>
+        </div>
+
+        <!-- Textes de verdict sans jargon -->
+        <div class="result-text-area">
+          <h1 id="verdict-title" class="verdict-title">Menace détectée</h1>
+          <p id="verdict-description" class="verdict-description">
+            Ne cliquez sur aucun lien, ne donnez aucune information et supprimez le message immédiatement.
+          </p>
+        </div>
+
+        <!-- Encadré pédagogique spécifique (Heuristique ou détails) -->
+        <div id="result-detail-box" class="result-detail-box hidden">
+          <span class="detail-icon" aria-hidden="true">💡</span>
+          <span id="result-detail-text" class="detail-text"></span>
+        </div>
+
+        <!-- Encadré rassurant pour les seniors -->
+        <div class="reassurance-card">
+          <span class="reassurance-icon" aria-hidden="true">🛡️</span>
+          <p id="reassurance-text" class="reassurance-text">
+            Rassurez-vous : tant que vous ne cliquez pas sur les liens, vous êtes totalement en sécurité.
+          </p>
+        </div>
+
+        <!-- Zone d'actions du résultat -->
+        <div class="result-action-area">
+          
+          <!-- 🌐 GROS BOUTON : Visiter le site en sécurité (affiché UNIQUEMENT si lien Sécurisé) -->
+          <button type="button" id="btn-visiter-securise" class="btn-visit-secure hidden">
+            <span class="visit-icon" aria-hidden="true">🌐</span>
+            <span id="btn-visit-text">Visiter le site en sécurité</span>
+          </button>
+
+          <!-- 🔒 BANDEAU DE BLOCAGE STRICT : si DANGER -->
+          <div id="danger-blocked-box" class="danger-blocked-box hidden">
+            <span class="blocked-icon" aria-hidden="true">🔒</span>
+            <span id="danger-blocked-text">Accès bloqué : Ne tentez pas d'ouvrir ce lien pour votre sécurité</span>
+          </div>
+
+          <!-- Bouton vocal pour écouter le résultat -->
+          <button type="button" id="btn-audio-result" class="btn-audio-listen" title="Écouter le résultat à voix haute">
+            <span aria-hidden="true">🔊</span>
+            <span id="btn-audio-text">Écouter l'explication</span>
+          </button>
+
+          <!-- Bouton de retour : Vérifier un autre message -->
+          <button type="button" id="btn-verifier-autre" class="btn-return-secondary">
+            <span class="return-icon" aria-hidden="true">←</span>
+            <span id="btn-return-text">Vérifier un autre élément</span>
+          </button>
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- ====================================================================
+         MODAL DU NAVIGATEUR SÉCURISÉ INTÉGRÉ (In-App Secure Browser)
+         ==================================================================== -->
+    <div id="modal-secure-browser" class="modal-browser-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="browser-title-text">
+      <div class="modal-browser-card">
+        <header class="modal-browser-header">
+          <div class="browser-status-info">
+            <span class="browser-shield-badge">🛡️ Site certifié sûr</span>
+            <span id="browser-url-display" class="browser-url-text">https://...</span>
+          </div>
+          <div class="browser-header-actions">
+            <a id="btn-browser-external" href="#" target="_blank" rel="noopener noreferrer" class="btn-browser-tool" title="Ouvrir dans un nouvel onglet sécurisé">
+              <span>Ouvrir dans un onglet ↗</span>
+            </a>
+            <button type="button" id="btn-close-browser" class="btn-close-modal" aria-label="Fermer le navigateur sécurisé">
+              ✕ Fermer
+            </button>
+          </div>
+        </header>
+
+        <div class="modal-browser-body">
+          <iframe id="browser-iframe" class="browser-iframe" sandbox="allow-scripts allow-same-origin allow-forms allow-popups" title="Navigateur sécurisé ScamShield"></iframe>
+          
+          <!-- Fallback gracieux si le site tiers bloque les iframes via X-Frame-Options -->
+          <div id="browser-iframe-fallback" class="browser-fallback hidden">
+            <div class="fallback-card">
+              <span class="fallback-icon">🛡️</span>
+              <h3 id="fallback-title">Navigation sécurisée ScamShield</h3>
+              <p id="browser-fallback-text">
+                Ce site officiel applique une restriction d'affichage interne. Vous pouvez l'ouvrir en toute sécurité dans un nouvel onglet sécurisé.
+              </p>
+              <a id="btn-browser-fallback-open" href="#" target="_blank" rel="noopener noreferrer" class="btn-action-primary">
+                Continuer vers le site sécurisé ↗
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pied de page épuré -->
+    <footer class="footer">
+      <div class="footer-content">
+        <span class="footer-icon">🛡️</span>
+        <p id="footer-text">ScamShield - Assistant bienveillant de protection numérique pour toutes les générations.</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

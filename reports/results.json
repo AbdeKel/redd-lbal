@@ -1,0 +1,455 @@
+{
+  "version": "0.4.0",
+  "fusion": {
+    "a": 0.5,
+    "b": -0.5,
+    "floor_critical": 0.93,
+    "cap_no_harm": 0.49,
+    "t_amber": 0.5,
+    "t_red": 0.65,
+    "ml_alone": 0.99,
+    "ml_alone_floor": 0.5
+  },
+  "real_moroccan_messages": {
+    "n_legit": 18503,
+    "legit_red": 5.40452899529806e-05,
+    "legit_flagged": 0.00016213586985894179,
+    "by_source": {
+      "doda": {
+        "n_legit": 14373,
+        "legit_red": 0.0,
+        "legit_flagged": 6.957489737702637e-05
+      },
+      "mac": {
+        "n_legit": 1308,
+        "legit_red": 0.0,
+        "legit_flagged": 0.0
+      },
+      "myc": {
+        "n_legit": 2822,
+        "legit_red": 0.00035435861091424523,
+        "legit_flagged": 0.0007087172218284905
+      }
+    }
+  },
+  "uci_english_sms": {
+    "n_scam": 124,
+    "scam_red": 0.21774193548387097,
+    "scam_flagged": 0.5806451612903226,
+    "n_legit": 847,
+    "legit_red": 0.0011806375442739079,
+    "legit_flagged": 0.0035419126328217238
+  },
+  "unseen_templates": {
+    "n_scam": 1689,
+    "scam_red": 0.9727649496743636,
+    "scam_flagged": 1.0,
+    "n_legit": 745,
+    "legit_red": 0.0,
+    "legit_flagged": 0.06845637583892618,
+    "by_campaign": {
+      "account": {
+        "n_scam": 154,
+        "scam_red": 1.0,
+        "scam_flagged": 1.0
+      },
+      "ask_friend": {
+        "n_legit": 65,
+        "legit_red": 0.0,
+        "legit_flagged": 0.0
+      },
+      "bank_notice": {
+        "n_legit": 58,
+        "legit_red": 0.0,
+        "legit_flagged": 0.0
+      },
+      "bank_otp": {
+        "n_scam": 132,
+        "scam_red": 1.0,
+        "scam_flagged": 1.0
+      },
+      "bank_phishing": {
+        "n_scam": 117,
+        "scam_red": 1.0,
+        "scam_flagged": 1.0
+      },
+      "business": {
+        "n_legit": 87,
+        "legit_red": 0.0,
+        "legit_flagged": 0.0
+      },
+      "chat": {
+        "n_legit": 87,
+        "legit_red": 0.0,
+        "legit_flagged": 0.0
+      },
+      "delivery": {
+        "n_legit": 38,
+        "legit_red": 0.0,
+        "legit_flagged": 0.0
+      },
+      "family": {
+        "n_scam": 104,
+        "scam_red": 0.6634615384615384,
+        "scam_flagged": 1.0
+      },
+      "family_money": {
+        "n_legit": 52,
+        "legit_red": 0.0,
+        "legit_flagged": 0.7307692307692307
+      },
+      "gov": {
+        "n_legit": 58,
+        "legit_red": 0.0,
+        "legit_flagged": 0.0
+      },
+      "gov_aid": {
+        "n_scam": 77,
+        "scam_red": 1.0,
+        "scam_flagged": 1.0
+      },
+      "investment": {
+        "n_scam": 92,
+        "scam_red": 1.0,
+        "scam_flagged": 1.0
+      },
+      "job": {
+        "n_scam": 116,
+        "scam_red": 1.0,
+        "scam_flagged": 1.0
+      },
+      "link_share": {
+        "n_legit": 52,
+        "legit_red": 0.0,
+        "legit_flagged": 0.25
+      },
+      "lottery": {
+        "n_scam": 104,
+        "scam_red": 1.0,
+        "scam_flagged": 1.0
+      },
+      "lure_link": {
+        "n_scam": 154,
+        "scam_red": 1.0,
+        "scam_flagged": 1.0
+      },
+      "marketplace": {
+        "n_scam": 77,
+        "scam_red": 1.0,
+        "scam_flagged": 1.0
+      },
+      "otp": {
+        "n_legit": 44,
+        "legit_red": 0.0,
+        "legit_flagged": 0.0
+      },
+      "parcel": {
+        "n_scam": 116,
+        "scam_red": 0.9655172413793104,
+        "scam_flagged": 1.0
+      },
+      "promo": {
+        "n_legit": 87,
+        "legit_red": 0.0,
+        "legit_flagged": 0.0
+      },
+      "telecom": {
+        "n_legit": 52,
+        "legit_red": 0.0,
+        "legit_flagged": 0.0
+      },
+      "telecom_prize": {
+        "n_scam": 116,
+        "scam_red": 1.0,
+        "scam_flagged": 1.0
+      },
+      "traffic_fine": {
+        "n_scam": 84,
+        "scam_red": 1.0,
+        "scam_flagged": 1.0
+      },
+      "utility": {
+        "n_scam": 154,
+        "scam_red": 0.9545454545454546,
+        "scam_flagged": 1.0
+      },
+      "warning": {
+        "n_legit": 65,
+        "legit_red": 0.0,
+        "legit_flagged": 0.0
+      },
+      "whatsapp_hijack": {
+        "n_scam": 92,
+        "scam_red": 1.0,
+        "scam_flagged": 1.0
+      }
+    },
+    "by_lang": {
+      "dar_ar": {
+        "n_scam": 553,
+        "scam_red": 0.9873417721518988,
+        "scam_flagged": 1.0,
+        "n_legit": 190,
+        "legit_red": 0.0,
+        "legit_flagged": 0.0
+      },
+      "dar_lat": {
+        "n_scam": 268,
+        "scam_red": 0.917910447761194,
+        "scam_flagged": 1.0,
+        "n_legit": 204,
+        "legit_red": 0.0,
+        "legit_flagged": 0.18627450980392157
+      },
+      "en": {
+        "n_scam": 108,
+        "scam_red": 1.0,
+        "scam_flagged": 1.0
+      },
+      "fr": {
+        "n_scam": 629,
+        "scam_red": 0.972972972972973,
+        "scam_flagged": 1.0,
+        "n_legit": 351,
+        "legit_red": 0.0,
+        "legit_flagged": 0.037037037037037035
+      },
+      "msa": {
+        "n_scam": 131,
+        "scam_red": 1.0,
+        "scam_flagged": 1.0
+      }
+    }
+  },
+  "sets": {
+    "challenge_set": {
+      "redd_lbal": {
+        "n_scam": 66,
+        "scam_red": 0.9545454545454546,
+        "scam_flagged": 1.0,
+        "n_legit": 54,
+        "legit_red": 0.0,
+        "legit_flagged": 0.0
+      },
+      "original": {
+        "n_scam": 66,
+        "scam_red": 0.3333333333333333,
+        "scam_flagged": 0.3333333333333333,
+        "n_legit": 54,
+        "legit_red": 0.2037037037037037,
+        "legit_flagged": 0.2037037037037037
+      },
+      "by_lang": {
+        "dar_ar": {
+          "n_scam": 14,
+          "scam_red": 0.8571428571428571,
+          "scam_flagged": 1.0,
+          "n_legit": 8,
+          "legit_red": 0.0,
+          "legit_flagged": 0.0
+        },
+        "dar_lat": {
+          "n_scam": 13,
+          "scam_red": 0.9230769230769231,
+          "scam_flagged": 1.0,
+          "n_legit": 12,
+          "legit_red": 0.0,
+          "legit_flagged": 0.0
+        },
+        "en": {
+          "n_scam": 6,
+          "scam_red": 1.0,
+          "scam_flagged": 1.0,
+          "n_legit": 3,
+          "legit_red": 0.0,
+          "legit_flagged": 0.0
+        },
+        "fr": {
+          "n_scam": 22,
+          "scam_red": 1.0,
+          "scam_flagged": 1.0,
+          "n_legit": 23,
+          "legit_red": 0.0,
+          "legit_flagged": 0.0
+        },
+        "mix": {
+          "n_scam": 1,
+          "scam_red": 1.0,
+          "scam_flagged": 1.0
+        },
+        "msa": {
+          "n_scam": 10,
+          "scam_red": 1.0,
+          "scam_flagged": 1.0,
+          "n_legit": 8,
+          "legit_red": 0.0,
+          "legit_flagged": 0.0
+        }
+      },
+      "type_accuracy_on_red_scams": null
+    },
+    "blind_set": {
+      "redd_lbal": {
+        "n_scam": 40,
+        "scam_red": 0.95,
+        "scam_flagged": 1.0,
+        "n_legit": 30,
+        "legit_red": 0.0,
+        "legit_flagged": 0.0
+      },
+      "original": {
+        "n_scam": 40,
+        "scam_red": 0.45,
+        "scam_flagged": 0.45,
+        "n_legit": 30,
+        "legit_red": 0.2,
+        "legit_flagged": 0.2
+      },
+      "by_lang": {
+        "dar_ar": {
+          "n_scam": 7,
+          "scam_red": 1.0,
+          "scam_flagged": 1.0,
+          "n_legit": 5,
+          "legit_red": 0.0,
+          "legit_flagged": 0.0
+        },
+        "dar_lat": {
+          "n_scam": 10,
+          "scam_red": 0.8,
+          "scam_flagged": 1.0,
+          "n_legit": 5,
+          "legit_red": 0.0,
+          "legit_flagged": 0.0
+        },
+        "en": {
+          "n_scam": 4,
+          "scam_red": 1.0,
+          "scam_flagged": 1.0,
+          "n_legit": 3,
+          "legit_red": 0.0,
+          "legit_flagged": 0.0
+        },
+        "fr": {
+          "n_scam": 14,
+          "scam_red": 1.0,
+          "scam_flagged": 1.0,
+          "n_legit": 12,
+          "legit_red": 0.0,
+          "legit_flagged": 0.0
+        },
+        "msa": {
+          "n_scam": 5,
+          "scam_red": 1.0,
+          "scam_flagged": 1.0,
+          "n_legit": 5,
+          "legit_red": 0.0,
+          "legit_flagged": 0.0
+        }
+      },
+      "type_accuracy_on_red_scams": null
+    },
+    "blind_set2": {
+      "redd_lbal": {
+        "n_scam": 36,
+        "scam_red": 1.0,
+        "scam_flagged": 1.0,
+        "n_legit": 25,
+        "legit_red": 0.0,
+        "legit_flagged": 0.0
+      },
+      "original": {
+        "n_scam": 36,
+        "scam_red": 0.3888888888888889,
+        "scam_flagged": 0.3888888888888889,
+        "n_legit": 25,
+        "legit_red": 0.36,
+        "legit_flagged": 0.36
+      },
+      "by_lang": {
+        "dar_ar": {
+          "n_scam": 6,
+          "scam_red": 1.0,
+          "scam_flagged": 1.0,
+          "n_legit": 6,
+          "legit_red": 0.0,
+          "legit_flagged": 0.0
+        },
+        "dar_lat": {
+          "n_scam": 6,
+          "scam_red": 1.0,
+          "scam_flagged": 1.0,
+          "n_legit": 6,
+          "legit_red": 0.0,
+          "legit_flagged": 0.0
+        },
+        "en": {
+          "n_scam": 2,
+          "scam_red": 1.0,
+          "scam_flagged": 1.0,
+          "n_legit": 1,
+          "legit_red": 0.0,
+          "legit_flagged": 0.0
+        },
+        "fr": {
+          "n_scam": 13,
+          "scam_red": 1.0,
+          "scam_flagged": 1.0,
+          "n_legit": 10,
+          "legit_red": 0.0,
+          "legit_flagged": 0.0
+        },
+        "fr_real": {
+          "n_scam": 5,
+          "scam_red": 1.0,
+          "scam_flagged": 1.0
+        },
+        "msa": {
+          "n_scam": 4,
+          "scam_red": 1.0,
+          "scam_flagged": 1.0,
+          "n_legit": 2,
+          "legit_red": 0.0,
+          "legit_flagged": 0.0
+        }
+      },
+      "type_accuracy_on_red_scams": null
+    }
+  },
+  "original_on_real_messages": {
+    "n": 3000,
+    "false_alarm": 0.003
+  },
+  "official_moroccan_sites": {
+    "n": 25,
+    "original_flagged_danger": 17,
+    "redd_lbal_flagged": 0,
+    "original_flagged_list": [
+      "https://www.cihbank.ma",
+      "https://www.attijariwafabank.com",
+      "https://www.bankofafrica.ma",
+      "https://www.groupebcp.com",
+      "https://www.sahambank.com",
+      "https://www.bmci.ma",
+      "https://www.iam.ma",
+      "https://www.inwi.ma",
+      "https://www.orange.ma",
+      "https://www.cnss.ma",
+      "https://www.asd.ma",
+      "https://www.rsu.ma",
+      "https://www.daamsakane.ma",
+      "https://www.bkam.ma",
+      "https://www.lydec.ma",
+      "https://www.avito.ma",
+      "https://www.jumia.ma"
+    ]
+  },
+  "latency_ms": {
+    "n": 2251,
+    "p50": 0.473,
+    "p95": 1.438,
+    "p99": 2.173,
+    "mean": 0.609,
+    "msgs_per_sec_1core": 1642
+  }
+}

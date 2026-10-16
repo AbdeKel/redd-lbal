@@ -1,0 +1,92 @@
+{
+  "account": {
+    "n": 154,
+    "engine_red": 1.0,
+    "engine_flagged": 1.0,
+    "ml_only_caught": 1.0
+  },
+  "bank_otp": {
+    "n": 132,
+    "engine_red": 1.0,
+    "engine_flagged": 1.0,
+    "ml_only_caught": 0.7272727272727273
+  },
+  "bank_phishing": {
+    "n": 117,
+    "engine_red": 1.0,
+    "engine_flagged": 1.0,
+    "ml_only_caught": 1.0
+  },
+  "family": {
+    "n": 104,
+    "engine_red": 0.3942307692307692,
+    "engine_flagged": 1.0,
+    "ml_only_caught": 0.47115384615384615
+  },
+  "gov_aid": {
+    "n": 77,
+    "engine_red": 1.0,
+    "engine_flagged": 1.0,
+    "ml_only_caught": 1.0
+  },
+  "investment": {
+    "n": 92,
+    "engine_red": 1.0,
+    "engine_flagged": 1.0,
+    "ml_only_caught": 0.8913043478260869
+  },
+  "job": {
+    "n": 116,
+    "engine_red": 1.0,
+    "engine_flagged": 1.0,
+    "ml_only_caught": 1.0
+  },
+  "lottery": {
+    "n": 104,
+    "engine_red": 1.0,
+    "engine_flagged": 1.0,
+    "ml_only_caught": 1.0
+  },
+  "lure_link": {
+    "n": 154,
+    "engine_red": 1.0,
+    "engine_flagged": 1.0,
+    "ml_only_caught": 0.0
+  },
+  "marketplace": {
+    "n": 77,
+    "engine_red": 1.0,
+    "engine_flagged": 1.0,
+    "ml_only_caught": 1.0
+  },
+  "parcel": {
+    "n": 116,
+    "engine_red": 0.9655172413793104,
+    "engine_flagged": 1.0,
+    "ml_only_caught": 1.0
+  },
+  "telecom_prize": {
+    "n": 116,
+    "engine_red": 1.0,
+    "engine_flagged": 1.0,
+    "ml_only_caught": 0.8189655172413793
+  },
+  "traffic_fine": {
+    "n": 84,
+    "engine_red": 1.0,
+    "engine_flagged": 1.0,
+    "ml_only_caught": 1.0
+  },
+  "utility": {
+    "n": 154,
+    "engine_red": 0.9545454545454546,
+    "engine_flagged": 1.0,
+    "ml_only_caught": 1.0
+  },
+  "whatsapp_hijack": {
+    "n": 92,
+    "engine_red": 1.0,
+    "engine_flagged": 1.0,
+    "ml_only_caught": 0.03260869565217391
+  }
+}

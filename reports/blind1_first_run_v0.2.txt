@@ -1,0 +1,89 @@
+SCAMS  n=40  red=0.850  amber=0.075  green(missed)=0.075
+LEGIT  n=30  green=0.933  amber=0.033  red(false alarm)=0.033
+
+--- scams not red:
+      id             camp     lang    risk      v      ml                             sig                                                                             text
+4   B005    bank_phishing   dar_ar  0.6775  amber  0.3943     call_foreign_number,urgency  عميلنا العزيز، تم تسجيل دخول جديد لحسابك فالتطبيق. إلا ماشي نتا عيط دابا ل +...
+18  B019  whatsapp_hijack       fr  0.3900  green  0.9998                                  Salut c'est moi, je change de téléphone et j'ai mis ton numéro par erreur, t...
+24  B025       investment  dar_lat  0.3900  green  0.8933                           prize  ana kan investi f wa7d plateforme w rbe7t 20000dh f chhar, bghiti nwrik? dak...
+33  B034        lure_link  dar_lat  0.6281  amber  0.5515     link_shortener,link_unknown                          Chouf chno katbe3 3lik f had video 😳 tinyurl.com/9x7kd2
+35  B036       investment   dar_ar  0.7202  amber  0.1471  investment,offplatform_contact  ضاعف فلوسك فسيمانة! استثمر فالكريبتو مع خبراء مغاربة، الربح مضمون. تواصل معا...
+39  B040         bank_otp       fr  0.3900  green  0.9979                                  Bonjour, c'est le service fraude de CIH. Nous allons vous envoyer un code po...
+
+--- legit not green:
+      id  camp     lang    risk      v      ml                                 sig                                                                             text
+46  B047   gov      msa  0.9300    red  0.4531  gov_claim_nongov_link,link_unknown  وزارة الداخلية: يُخبَر المواطنون أن عملية تجديد البطاقة الوطنية تتم حصريا بم...
+64  B065  chat  dar_lat  0.4078  amber  0.5527                        link_unknown  salam, chno rayk nmchiw l Saïdia had weekend? kayn promo f l'hôtel 3la booki...
+      id  label      v           type                                                                                                                            sig
+0   B001      1    red   traffic_fine                                                                                    gov_claim_nongov_link,pay_link,link_unknown
+1   B002      1    red   traffic_fine                                                                 link_impersonation,gov_claim_nongov_link,pay_link,link_unknown
+2   B003      1    red   traffic_fine                                                                link_impersonation,gov_claim_nongov_link,link_unknown,link_http
+3   B004      1    red           bank                                      link_impersonation,brand_link_mismatch,info_request,data_update_link,link_unknown,urgency
+4   B005      1  amber        generic                                                                                                    call_foreign_number,urgency
+5   B006      1    red           bank                                                                                                     credential_request,urgency
+6   B007      1    red           bank                                                                   link_impersonation,brand_link_mismatch,pay_link,link_unknown
+7   B008      1    red         parcel                                                    link_impersonation,brand_link_mismatch,fee_to_receive,pay_link,link_unknown
+8   B009      1    red         parcel                                                                            fee_to_receive,link_shortener,pay_link,link_unknown
+9   B010      1    red         parcel                                    link_impersonation,brand_link_mismatch,link_susp_tld,pay_link,data_update_link,link_unknown
+10  B011      1    red  telecom_prize                                      link_impersonation,brand_link_mismatch,prize_fee,link_susp_tld,link_unknown,urgency,prize
+11  B012      1    red  telecom_prize                                                      link_impersonation,brand_link_mismatch,link_susp_tld,link_unknown,urgency
+12  B013      1    red        gov_aid                                                                               gov_claim_nongov_link,link_susp_tld,link_unknown
+13  B014      1    red        gov_aid                        link_impersonation,gov_claim_nongov_link,brand_link_mismatch,prize_fee,link_susp_tld,link_unknown,prize
+14  B015      1    red        gov_aid                                                      link_impersonation,gov_claim_nongov_link,brand_link_mismatch,link_unknown
+15  B016      1    red         family                                                                           family_money_trouble,new_number_family,money_request
+16  B017      1    red         family                                                                   family_money_trouble,new_number_family,money_request,urgency
+17  B018      1    red        generic                                                                                                          money_request,urgency
+18  B019      1  green            NaN                                                                                                                               
+19  B020      1    red           bank                                                                                                             credential_request
+20  B021      1    red            job                                                                                           job_fee,fee_to_receive,money_request
+21  B022      1    red        account                                                                                                                  money_request
+22  B023      1    red            job                                                                                     link_chat,offplatform_contact,link_unknown
+23  B024      1    red     investment                                                                                              investment,link_chat,link_unknown
+24  B025      1  green            NaN                                                                                                                          prize
+25  B026      1    red        lottery                                                                                                 prize_fee,fee_to_receive,prize
+26  B027      1    red        lottery                                                                                              money_request,offplatform_contact
+27  B028      1    red   traffic_fine  gov_claim_nongov_link,brand_link_mismatch,prize_fee,fee_to_receive,link_susp_tld,pay_link,data_update_link,link_unknown,prize
+28  B029      1    red    marketplace                                                                            link_impersonation,brand_link_mismatch,link_unknown
+29  B030      1    red        generic                                                                                                                  money_request
+30  B031      1    red        utility                                                    link_impersonation,brand_link_mismatch,pay_link,threat,link_unknown,urgency
+31  B032      1    red        account                                                             link_impersonation,brand_link_mismatch,threat,link_unknown,urgency
+32  B033      1    red        account                                             link_impersonation,brand_link_mismatch,link_susp_tld,data_update_link,link_unknown
+33  B034      1  amber      lure_link                                                                                                    link_shortener,link_unknown
+34  B035      1    red        account                                                                            link_impersonation,brand_link_mismatch,link_unknown
+35  B036      1  amber     investment                                                                                                 investment,offplatform_contact
+36  B037      1    red           bank                                                                                        foreign_sender_authority,foreign_sender
+37  B038      1    red   traffic_fine                                                                                        foreign_sender_authority,foreign_sender
+38  B039      1    red        lottery                                                                                   prize_fee,fee_to_receive,money_request,prize
+39  B040      1  green            NaN                                                                                                                               
+40  B041      0  green            NaN                                                                                                                      legit_otp
+41  B042      0  green            NaN                                                                                                                               
+42  B043      0  green            NaN                                                                                                                               
+43  B044      0  green            NaN                                                                                                                               
+44  B045      0  green            NaN                                                                                                                               
+45  B046      0  green            NaN                                                                                                                               
+46  B047      0    red        generic                                                                                             gov_claim_nongov_link,link_unknown
+47  B048      0  green            NaN                                                                                                                               
+48  B049      0  green            NaN                                                                                                                               
+49  B050      0  green            NaN                                                                                                                               
+50  B051      0  green            NaN                                                                                                                               
+51  B052      0  green            NaN                                                                                                                               
+52  B053      0  green            NaN                                                                                                                               
+53  B054      0  green            NaN                                                                                                                        urgency
+54  B055      0  green            NaN                                                                                                                               
+55  B056      0  green            NaN                                                                                                                               
+56  B057      0  green            NaN                                                                                                                               
+57  B058      0  green            NaN                                                                                                             official_link_only
+58  B059      0  green            NaN                                                                                                                               
+59  B060      0  green            NaN                                                                                                                          prize
+60  B061      0  green            NaN                                                                                                                               
+61  B062      0  green            NaN                                                                                                                               
+62  B063      0  green            NaN                                                                                                                               
+63  B064      0  green            NaN                                                                                                             protective_warning
+64  B065      0  amber        generic                                                                                                                   link_unknown
+65  B066      0  green            NaN                                                                                                                               
+66  B067      0  green            NaN                                                                                                                               
+67  B068      0  green            NaN                                                                                                                          prize
+68  B069      0  green            NaN                                                                                                                               
+69  B070      0  green            NaN                                                                                                                         threat
+
+latency: 1.14 ms/msg

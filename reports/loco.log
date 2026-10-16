@@ -1,0 +1,46 @@
+  fit: 227,372 features -> kept 40,000 | 51s
+  exported /home/claude/redd-lbal/model/_loco_ml.json (1.19 MB)
+account {'n': 154, 'engine_red': 1.0, 'engine_flagged': 1.0, 'ml_only_caught': 1.0}
+  fit: 227,049 features -> kept 40,000 | 51s
+  exported /home/claude/redd-lbal/model/_loco_ml.json (1.19 MB)
+bank_otp {'n': 132, 'engine_red': 1.0, 'engine_flagged': 1.0, 'ml_only_caught': 0.7272727272727273}
+  fit: 227,016 features -> kept 40,000 | 50s
+  exported /home/claude/redd-lbal/model/_loco_ml.json (1.19 MB)
+bank_phishing {'n': 117, 'engine_red': 1.0, 'engine_flagged': 1.0, 'ml_only_caught': 1.0}
+  fit: 227,088 features -> kept 40,000 | 51s
+  exported /home/claude/redd-lbal/model/_loco_ml.json (1.19 MB)
+family {'n': 104, 'engine_red': 0.3942307692307692, 'engine_flagged': 1.0, 'ml_only_caught': 0.47115384615384615}
+  fit: 227,195 features -> kept 40,000 | 50s
+  exported /home/claude/redd-lbal/model/_loco_ml.json (1.19 MB)
+gov_aid {'n': 77, 'engine_red': 1.0, 'engine_flagged': 1.0, 'ml_only_caught': 1.0}
+  fit: 227,218 features -> kept 40,000 | 50s
+  exported /home/claude/redd-lbal/model/_loco_ml.json (1.20 MB)
+investment {'n': 92, 'engine_red': 1.0, 'engine_flagged': 1.0, 'ml_only_caught': 0.8913043478260869}
+  fit: 227,001 features -> kept 40,000 | 50s
+  exported /home/claude/redd-lbal/model/_loco_ml.json (1.19 MB)
+job {'n': 116, 'engine_red': 1.0, 'engine_flagged': 1.0, 'ml_only_caught': 1.0}
+  fit: 227,181 features -> kept 40,000 | 51s
+  exported /home/claude/redd-lbal/model/_loco_ml.json (1.19 MB)
+lottery {'n': 104, 'engine_red': 1.0, 'engine_flagged': 1.0, 'ml_only_caught': 1.0}
+  fit: 227,437 features -> kept 40,000 | 52s
+  exported /home/claude/redd-lbal/model/_loco_ml.json (1.19 MB)
+lure_link {'n': 154, 'engine_red': 1.0, 'engine_flagged': 1.0, 'ml_only_caught': 0.0}
+  fit: 227,161 features -> kept 40,000 | 51s
+  exported /home/claude/redd-lbal/model/_loco_ml.json (1.19 MB)
+marketplace {'n': 77, 'engine_red': 1.0, 'engine_flagged': 1.0, 'ml_only_caught': 1.0}
+  fit: 227,090 features -> kept 40,000 | 51s
+  exported /home/claude/redd-lbal/model/_loco_ml.json (1.19 MB)
+parcel {'n': 116, 'engine_red': 0.9655172413793104, 'engine_flagged': 1.0, 'ml_only_caught': 1.0}
+  fit: 227,200 features -> kept 40,000 | 53s
+  exported /home/claude/redd-lbal/model/_loco_ml.json (1.19 MB)
+telecom_prize {'n': 116, 'engine_red': 1.0, 'engine_flagged': 1.0, 'ml_only_caught': 0.8189655172413793}
+  fit: 226,944 features -> kept 40,000 | 53s
+  exported /home/claude/redd-lbal/model/_loco_ml.json (1.19 MB)
+traffic_fine {'n': 84, 'engine_red': 1.0, 'engine_flagged': 1.0, 'ml_only_caught': 1.0}
+  fit: 227,335 features -> kept 40,000 | 55s
+  exported /home/claude/redd-lbal/model/_loco_ml.json (1.19 MB)
+utility {'n': 154, 'engine_red': 0.9545454545454546, 'engine_flagged': 1.0, 'ml_only_caught': 1.0}
+  fit: 227,341 features -> kept 40,000 | 54s
+  exported /home/claude/redd-lbal/model/_loco_ml.json (1.19 MB)
+whatsapp_hijack {'n': 92, 'engine_red': 1.0, 'engine_flagged': 1.0, 'ml_only_caught': 0.03260869565217391}
+done

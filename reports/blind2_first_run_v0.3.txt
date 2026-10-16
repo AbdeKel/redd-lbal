@@ -1,0 +1,74 @@
+SCAMS  n=36  red=0.917  amber=0.083  green(missed)=0.000
+LEGIT  n=25  green=0.960  amber=0.040  red(false alarm)=0.000
+
+--- scams not red:
+      id        camp     lang  risk      v      ml      sig                                                                             text
+4   D005    bank_otp   dar_ar   0.5  amber  0.9660  urgency  مرحبا معاك مصلحة الزبناء، باش نرجعو ليك الفلوس اللي تقتطعو بالغلط خاصنا الكو...
+19  D020         job       fr   0.5  amber  0.9924   threat  Offre spéciale : devenez agent de saisie à domicile, 350 DH/jour. Inscriptio...
+22  D023  investment  dar_lat   0.5  amber  0.9490           Khoya 7ell compte f had plateforme crypto w 7et 1000dh, ghadi tchouf flousk ...
+
+--- legit not green:
+      id  camp     lang  risk      v      ml sig                                                                    text
+59  D060  chat  dar_lat   0.5  amber  0.9897      3afak sift lia smiya w numéro dyal plombier li jak, bghit nsl7 robinet
+      id  label      v             type                                                                                                                          sig
+0   D001      1    red     traffic_fine                                               link_impersonation,gov_claim_nongov_link,data_update_link,link_unknown,urgency
+1   D002      1    red     traffic_fine                        link_impersonation,gov_claim_nongov_link,foreign_sender_authority,link_unknown,urgency,foreign_sender
+2   D003      1    red             bank                                                 link_impersonation,brand_link_mismatch,data_update_link,link_unknown,urgency
+3   D004      1    red             bank                                                                  link_impersonation,brand_link_mismatch,link_unknown,urgency
+4   D005      1  amber          generic                                                                                                                      urgency
+5   D006      1    red          account                                                                                                                money_request
+6   D007      1    red           parcel                             link_impersonation,gov_claim_nongov_link,brand_link_mismatch,link_susp_tld,pay_link,link_unknown
+7   D008      1    red           parcel                                                                       gov_claim_nongov_link,brand_link_mismatch,link_unknown
+8   D009      1    red          generic                                                          link_shortener,money_request,pay_link,data_update_link,link_unknown
+9   D010      1    red    telecom_prize                                            link_impersonation,brand_link_mismatch,prize_fee,link_susp_tld,link_unknown,prize
+10  D011      1    red    telecom_prize                                                  link_impersonation,brand_link_mismatch,prize_fee,link_unknown,urgency,prize
+11  D012      1    red          gov_aid  link_impersonation,gov_claim_nongov_link,credential_request,brand_link_mismatch,link_susp_tld,data_update_link,link_unknown
+12  D013      1    red          gov_aid   link_impersonation,gov_claim_nongov_link,credential_request,brand_link_mismatch,info_request,data_update_link,link_unknown
+13  D014      1    red           family                                                                                                    new_number_family,urgency
+14  D015      1    red           family                                                                           family_money_trouble,money_request,secrecy,urgency
+15  D016      1    red           family                                                                                       family_money_trouble,new_number_family
+16  D017      1    red             bank                                                                                                   credential_request,urgency
+17  D018      1    red  whatsapp_hijack                                                                                           whatsapp_hijack,credential_request
+18  D019      1    red              job                                                                                                                money_request
+19  D020      1  amber          account                                                                                                                       threat
+20  D021      1    red       investment                                                                        investment,link_chat,offplatform_contact,link_unknown
+21  D022      1    red       investment                                                                                            investment,link_chat,link_unknown
+22  D023      1  amber       investment                                                                                                                             
+23  D024      1    red          lottery                                          prize_fee,fee_to_receive,link_susp_tld,pay_link,data_update_link,link_unknown,prize
+24  D025      1    red          lottery                                                    prize_fee,fee_to_receive,advance_payment,money_request,info_request,prize
+25  D026      1    red             bank                                    link_impersonation,credential_request,info_request,pay_link,data_update_link,link_unknown
+26  D027      1    red          utility                                                                   link_impersonation,brand_link_mismatch,threat,link_unknown
+27  D028      1    red     traffic_fine                                                               gov_claim_nongov_link,brand_link_mismatch,link_unknown,urgency
+28  D029      1    red        lure_link                                                                                   link_shortener,curiosity_lure,link_unknown
+29  D030      1    red          account                                 link_impersonation,brand_link_mismatch,pay_link,data_update_link,threat,link_unknown,urgency
+30  D031      1    red             bank                                                                       foreign_sender_authority,threat,urgency,foreign_sender
+31  D032      1    red     traffic_fine                                                       link_impersonation,gov_claim_nongov_link,pay_link,link_unknown,urgency
+32  D033      1    red     traffic_fine                                                        link_impersonation,gov_claim_nongov_link,pay_link,threat,link_unknown
+33  D034      1    red          generic                                                                                                 pay_link,threat,link_unknown
+34  D035      1    red     traffic_fine                                                        link_impersonation,gov_claim_nongov_link,pay_link,threat,link_unknown
+35  D036      1    red     traffic_fine                                                       link_impersonation,gov_claim_nongov_link,pay_link,link_unknown,urgency
+36  D037      0  green              NaN                                                                                                       legit_otp,otp_delivery
+37  D038      0  green              NaN                                                                                                         otp_delivery,urgency
+38  D039      0  green              NaN                                                                                                                             
+39  D040      0  green              NaN                                                                                                                             
+40  D041      0  green              NaN                                                                                                                             
+41  D042      0  green              NaN                                                                                                                 otp_delivery
+42  D043      0  green              NaN                                                                                                                      urgency
+43  D044      0  green              NaN                                                                                                                             
+44  D045      0  green              NaN                                                                                                                             
+45  D046      0  green              NaN                                                                                                                             
+46  D047      0  green              NaN                                                                                                                             
+47  D048      0  green              NaN                                                                                                                             
+48  D049      0  green              NaN                                                                                                           official_link_only
+49  D050      0  green              NaN                                                                                                                             
+50  D051      0  green              NaN                                                                                                                             
+51  D052      0  green              NaN                                                                                                           official_link_only
+52  D053      0  green              NaN                                                                                                                             
+53  D054      0  green              NaN                                                                                                                             
+54  D055      0  green              NaN                                                                                                                             
+55  D056      0  green              NaN                                                                                                                             
+56  D057      0  green              NaN                                                                                                                             
+57  D058      0  green              NaN                                                                                                           official_link_only
+58  D059      0  green              NaN                                                                                                                             
+59  D060      0  amber          generic                                                                                                                             
+60  D061      0  green              NaN                                                                                                                             

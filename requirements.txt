@@ -1,0 +1,10 @@
+# Training + evaluation (your laptop or LinuxONE)
+pandas>=2.0
+numpy>=1.24
+scikit-learn>=1.3
+joblib>=1.3
+# API server (optional: server/stdlib_server.py needs NOTHING beyond Python 3.8+)
+fastapi>=0.110
+uvicorn>=0.29
+# Only to re-run the ORIGINAL prototype for the before/after comparison
+Levenshtein>=0.25

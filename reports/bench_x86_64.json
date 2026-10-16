@@ -1,0 +1,13 @@
+{
+  "machine": "x86_64",
+  "platform": "Linux-6.18.44-fc-v114-x86_64-with-glibc2.39",
+  "python": "3.13.16",
+  "cores_used": 2,
+  "latency_ms_1core": {
+    "p50": 0.45,
+    "p95": 1.406,
+    "p99": 1.848
+  },
+  "throughput_msgs_per_s": 2987,
+  "msgs_per_day": 258159936
+}

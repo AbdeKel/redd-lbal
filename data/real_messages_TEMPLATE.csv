@@ -1,0 +1,3 @@
+id,label,campaign,lang,sender,text
+R001,1,traffic_fine,msa,+44XXXXXXXXXX,"(paste the real scam message here; replace names and numbers by XXX)"
+R002,0,chat,dar_lat,,"(a real normal message from a family group, anonymised)"

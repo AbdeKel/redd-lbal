@@ -144,26 +144,3 @@ Data credits: DODa (github.com/darija-open-dataset, research/educational use), M
 MAC (github.com/LeMGarouani/MAC), UCI SMS Spam Collection. Cite them in the submission.
 
 ---
-
-## Next steps (in this order)
-
-1. **Collect real messages — the single most important thing.** Each teammate asks ~10 relatives for screenshots of scam
-   SMS/WhatsApp they received (+ normal messages). Remove names and numbers. Target ≈150 scams + 300 normal. Put them in
-   `data/real_messages.csv` (template in `data/real_messages_TEMPLATE.csv`) and run `python training/evaluate.py`.
-   **Test only — never train on them.** "Tested on N real messages from Moroccan families" is the line judges remember.
-2. **Native-speaker pass on the Darija** in `engine/knowledge.py` (the `TEXT` explanations and phrase lists). You will
-   spot phrasings we missed — add them, re-run `python -m engine.export && python webapp/build_web.py`.
-3. **Deploy on LinuxONE** and record the benchmark + `/api/health` + a live check from a phone.
-4. Optional: add the VISH-DARIJA-TTS text layer (zenodo.org/records/20039126) under `data/raw/vish_darija/` and rebuild
-   (loader in `build_dataset.py`; check field names). Don't republish its raw text (license).
-5. Optional (Med, Flutter): an Android app that receives **"Share → Redd Lbal"** from WhatsApp/SMS and either calls
-   `/api/check` or loads `dist/redd-lbal.html` in a WebView (works offline).
-
-### 3-minute video, suggested beats
-0:00 hook — "49% of scams in Morocco succeed in under 30 minutes." · 0:15 problem — spam filters don't read Darija ·
-0:30 live demo: fake fine from +44 → red stamp, highlighted words, link X-ray, "warn the family" ·
-1:10 family "new number" scam in Arabizi; real bank OTP → no false alarm · 1:40 two brains + unseen-scam-type result ·
-2:05 LinuxONE: 0.4 ms, millions/day, privacy + radar with differential privacy · 2:35 numbers vs. first prototype,
-real-message test · 2:50 call to action (operators, banks, DGSSI).
-
-**If you clicked or shared details:** call your bank to block the card, then report to the police (19) or on e-blagh.ma.
